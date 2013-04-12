@@ -1,6 +1,6 @@
 <?php
 
-	$debug = false;
+	$debug = true;
 
 	// Turn on php errors
 	if($debug){ ini_set('display_errors', 1); }
@@ -30,7 +30,7 @@
 	$dir = getcwd();
 	chdir('/home/lazy/public_html');
 	
-	if ($payload->ref == 'refs/heads/master')
+	if ($payload->ref == 'refs/heads/master'){
 		exec('./deploy_cinema.sh 2>&1', $output);
 	}
 
