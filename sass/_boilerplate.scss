@@ -83,11 +83,10 @@ body {
    =================== */
 
 .header-container {
-    border-bottom: 20px solid $bottom-border-color-header;
+    border-bottom: 10px solid $bottom-border-color-header;
 }
 
-.footer-container,
-.main aside {
+.footer-container {
     border-top: 20px solid $top-border-color-footer;
 }
 

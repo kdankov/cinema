@@ -26,7 +26,7 @@ $(function(){
 	var mm = today.getMonth(); //January is 0!
 	var dd = today.getDate();
 
-	$('<header><h2>Програма за</h2></header>').prependTo("#jscontainer");
+	$('<header><h2>Програма за </h2></header>').prependTo("#jscontainer");
 
 	$select_date = $('<select name="date" id="date" />');
 	$select_cinema = $('<select name="cinema" id="cinema" />');
@@ -42,15 +42,26 @@ $(function(){
 
 		$select_date.append('<option value="' + yyyy + '-' + month + '-' + day + '">' + (dd+i) + ' ' + months[mm] +'</option>');
 	}
+
+	for(var i=0; i < cinema.length; i++){
+		$select_cinema.append('<option value="' + cinema[i][1] + '">' + cinema[i][0] +'</option>');
+	}
+
 	
 	$select_date.change(function(){
-		update_table( $(this).children('option:selected').attr('value'), cinema[0][1] );
-	}).appendTo("#jscontainer > header")
+		update_table( $(this).children('option:selected').attr('value'), $("#cinema").children('option:selected').attr('value') );
+	}).appendTo("#jscontainer > header h2");
+
+	$('<span> в </span>').appendTo("#jscontainer > header h2");
+
+	$select_cinema.change(function(){
+		update_table( $("#date").children('option:selected').attr('value'), $(this).children('option:selected').attr('value') );
+	}).appendTo("#jscontainer > header h2")
 
 	update_table(weekdays[0], cinema[0][1]);
 
 	$("body")
-		.delegate("td", "mouseover", function() {
+		.delegate("td", "mouseover, mouseout", function() {
 			$(this).parents('table').find('td:nth-child(' + ($(this).index() + 1) + ')').addClass('highlight');
 		})
 		.delegate("td", "mouseout", function() {
