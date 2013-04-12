@@ -1,6 +1,6 @@
 <?php
 
-	$debug = true;
+	$debug = false;
 
 	// Turn on php errors
 	if($debug){ ini_set('display_errors', 1); }

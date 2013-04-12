@@ -1,5 +1,5 @@
 // Variables & Config
-var debug = true;
+var debug = false;
 var cache_url = '../cache/';
 var months = ['Януари','Февруари','Март','Април','Май','Юни','Юли','Август','Септември','Октомври','Ноември','Декември'];
 var cinema = [['Mall Sofia', 'ms'], ['Paradise Center', 'pc']];
