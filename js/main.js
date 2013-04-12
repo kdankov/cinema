@@ -1,6 +1,6 @@
 // Variables & Config
 var debug = false;
-var cache_url = '../cache/';
+var cache_url = 'cache/';
 var months = ['Януари','Февруари','Март','Април','Май','Юни','Юли','Август','Септември','Октомври','Ноември','Декември'];
 var cinema = [['Mall Sofia', 'ms'], ['Paradise Center', 'pc']];
 	
@@ -11,32 +11,49 @@ function de(data) {
 	}
 }
 
-function update_table(day, cinema){
-	$("#table").load(cache_url + cinema + '-' + day + ".html table", function(data) {
-		de(day + ' ' + cinema);
-	});	
-}
 
 // When the HTML loads, may the fun begins!
 $(function(){
 
-	var today = new Date();
-	var weekdays = new Array();
-	var yyyy = today.getFullYear();
-	var mm = today.getMonth(); //January is 0!
-	var dd = today.getDate();
+	var today		= new Date(),
+		weekdays	= new Array(),
+		yyyy		= today.getFullYear(),
+		mm			= today.getMonth(), //January is 0!
+		dd			= today.getDate(),
+
+		$table		= $('#table'),
+		$cols		= []
+	;
+
+	function update_table(day, cinema)
+	{
+		$table.load(cache_url + cinema + '-' + day + ".html table", function(data) {
+			$table.find('tr:gt(0)').each(function() // go through all rows (skip head row)
+			{
+				$(this).children().slice(1).each(function(i) // to through all cells (skip head cells) in the row and add them in the $cols array
+				{
+					if(!$cols[i]){ $cols[i] = []; }
+					$cols[i].push(this);
+				});
+			});
+			
+			for(var i in $cols){ $cols[i] = $($cols[i]); } // convert all cols to jquery objects
+
+			de(day + ' ' + cinema);
+		});	
+	}
 
 	$('<header><h2>Програма за </h2></header>').prependTo("#jscontainer");
 
 	$select_date = $('<select name="date" id="date" />');
 	$select_cinema = $('<select name="cinema" id="cinema" />');
 
-	for(var i=0; i<8; i++){
+	for(var i = 0, day, month; i < 8; i++){
 
-		var day = dd+i;
-		var month = mm+1;
-		if(day<10){day='0'+day} 
-		if(mm<10){month='0'+month} 
+		day = dd + i;
+		month = mm + 1;
+		if(day < 10){day = '0' + day} 
+		if(mm < 10){month = '0' + month} 
 
 		weekdays.push( yyyy + '-' + month + '-' + day );
 
@@ -60,12 +77,14 @@ $(function(){
 
 	update_table(weekdays[0], cinema[0][1]);
 
-	$("body")
+	$table
 		.delegate("td", "mouseover", function() {
-			$(this).parents('table').find('td:nth-child(' + ($(this).index() + 1) + ')').addClass('highlight');
+			var index = $(this).index();
+			if(index > 0){ $cols[index - 1].addClass('highlight'); }
 		})
 		.delegate("td", "mouseout", function() {
-			$(this).parents('table').find('td:nth-child(' + ($(this).index() + 1) + ')').removeClass('highlight');
+			var index = $(this).index();
+			if(index > 0){ $cols[index - 1].removeClass('highlight'); }
 		});
 });
 
