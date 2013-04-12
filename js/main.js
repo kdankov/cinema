@@ -1,9 +1,9 @@
 // Variables & Config
 var debug = true;
 var cache_url = '../cache/';
-var months = new Array( 'Януари','Февруари','Март','Април','Май','Юни','Юли','Август','Септември','Октомври','Ноември','Декември' );
-var cinema = 'ms-';
-
+var months = ['Януари','Февруари','Март','Април','Май','Юни','Юли','Август','Септември','Октомври','Ноември','Декември'];
+var cinema = [['Mall Sofia', 'ms'], ['Paradise Center', 'pc']];
+	
 // Functions
 function de(data) {
 	if(debug){
@@ -12,8 +12,7 @@ function de(data) {
 }
 
 function update_table(day, cinema){
-	$("#table").load(cache_url + cinema + day + ".html table", function(data) {
-		 //de(data);
+	$("#table").load(cache_url + cinema + '-' + day + ".html table", function(data) {
 		de(day + ' ' + cinema);
 	});	
 }
@@ -29,7 +28,8 @@ $(function(){
 
 	$('<header><h2>Програма за</h2></header>').prependTo("#jscontainer");
 
-	$select = $('<select />');
+	$select_date = $('<select name="date" id="date" />');
+	$select_cinema = $('<select name="cinema" id="cinema" />');
 
 	for(var i=0; i<8; i++){
 
@@ -40,13 +40,22 @@ $(function(){
 
 		weekdays.push( yyyy + '-' + month + '-' + day );
 
-		$select.append('<option value="' + yyyy + '-' + month + '-' + day + '">' + (dd+i) + ' ' + months[mm] +'</option>');
+		$select_date.append('<option value="' + yyyy + '-' + month + '-' + day + '">' + (dd+i) + ' ' + months[mm] +'</option>');
 	}
-
-	$select.change(function(){
-		update_table( $(this).children('option:selected').attr('value'), cinema );
+	
+	$select_date.change(function(){
+		update_table( $(this).children('option:selected').attr('value'), cinema[0][1] );
 	}).appendTo("#jscontainer > header")
 
-	update_table(weekdays[0], cinema);
+	update_table(weekdays[0], cinema[0][1]);
 
+	$("body")
+		.delegate("td", "mouseover", function() {
+			$(this).parents('table').find('td:nth-child(' + ($(this).index() + 1) + ')').addClass('highlight');
+		})
+		.delegate("td", "mouseout", function() {
+			$(this).parents('table').find('td:nth-child(' + ($(this).index() + 1) + ')').removeClass('highlight');
+		});
 });
+
+
