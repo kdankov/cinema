@@ -37,7 +37,7 @@ $(function(){
 				});
 			});
 			
-			for(var i in $cols){ $cols[i] = $($cols[i]); } // convert all cols to jquery objects
+			// for(var i in $cols){ $cols[i] = $($cols[i]); } // convert all cols to jquery objects
 
 			de(day + ' ' + cinema);
 		});	
@@ -79,7 +79,13 @@ $(function(){
 
 	var cols_highlight = function (index, shadowed)
 	{
-		if(index > 0){ $cols[index - 1].attr('class', (shadowed ? 'highlight' : '')); }
+		if(index > 0)
+		{
+			for($c = $cols[index - 1], i = 0; i < $c.length; i++)
+			{
+				$c[i].className = (shadowed ? 'highlight' : '');
+			}
+		}
 	};
 
 	$table
