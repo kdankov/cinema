@@ -61,7 +61,7 @@ $(function(){
 	update_table(weekdays[0], cinema[0][1]);
 
 	$("body")
-		.delegate("td", "mouseover, mouseout", function() {
+		.delegate("td", "mouseover", function() {
 			$(this).parents('table').find('td:nth-child(' + ($(this).index() + 1) + ')').addClass('highlight');
 		})
 		.delegate("td", "mouseout", function() {
