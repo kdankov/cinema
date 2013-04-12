@@ -1,8 +1,10 @@
+// Variables & Config
 var debug = true;
-var cache_url = 'http://cinemacity/cache/';
+var cache_url = '../cache/';
 var months = new Array( 'Януари','Февруари','Март','Април','Май','Юни','Юли','Август','Септември','Октомври','Ноември','Декември' );
 var cinema = 'ms-';
 
+// Functions
 function de(data) {
 	if(debug){
 		console.log(data);
@@ -16,6 +18,7 @@ function update_table(day, cinema){
 	});	
 }
 
+// When the HTML loads, may the fun begins!
 $(function(){
 
 	var today = new Date();
@@ -43,8 +46,6 @@ $(function(){
 	$select.change(function(){
 		update_table( $(this).children('option:selected').attr('value'), cinema );
 	}).appendTo("#jscontainer > header")
-
-
 
 	update_table(weekdays[0], cinema);
 

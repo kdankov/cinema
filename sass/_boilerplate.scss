@@ -2,6 +2,15 @@
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
 
+/*$bottom-border-color-header: #e44d26; */
+/*$top-border-color-footer: $bottom-border-color-header;*/
+/*$background-color: #f16529;*/
+
+$bottom-border-color-header: #EEE; 
+$top-border-color-footer: $bottom-border-color-header;
+$background-color: #FFF;
+
+
 html,
 button,
 input,
@@ -74,22 +83,22 @@ body {
    =================== */
 
 .header-container {
-    border-bottom: 20px solid #e44d26;
+    border-bottom: 20px solid $bottom-border-color-header;
 }
 
 .footer-container,
 .main aside {
-    border-top: 20px solid #e44d26;
+    border-top: 20px solid $top-border-color-footer;
 }
 
 .header-container,
 .footer-container,
 .main aside {
-    background: #f16529;
+    background: $background-color;
 }
 
 .title {
-    color: white;
+    color: #333;
 }
 
 /* ==============
@@ -110,13 +119,13 @@ nav a {
     text-decoration: none;
     font-weight: bold;
 
-    color: white;
+    color: #333;
     background: #e44d26;
 }
 
 nav a:hover,
 nav a:visited {
-    color: white;
+    color: #333;
 }
 
 nav a:hover {
@@ -128,7 +137,7 @@ nav a:hover {
    ============== */
 
 .main {
-    padding: 30px 0;
+    padding: 20px 0;
 }
 
 .main article h1 {
@@ -136,12 +145,12 @@ nav a:hover {
 }
 
 .main aside {
-    color: white;
+    color: #333;
     padding: 0px 5% 10px;
 }
 
 .footer-container footer {
-    color: white;
+    color: #333;
     padding: 20px 0;
 }
 
@@ -212,16 +221,6 @@ nav a:hover {
 
 @media only screen and (min-width: 768px) {
 
-/* ====================
-    WIDE: CSS3 Effects
-   ==================== */
-
-    .header-container,
-    .main aside {
-        -webkit-box-shadow: 0 5px 10px #aaa;
-           -moz-box-shadow: 0 5px 10px #aaa;
-                box-shadow: 0 5px 10px #aaa;
-    }
 
 /* ============
     WIDE: Menu
