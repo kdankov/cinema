@@ -77,15 +77,14 @@ $(function(){
 
 	update_table(weekdays[0], cinema[0][1]);
 
+	var cols_highlight = function (index, shadowed)
+	{
+		if(index > 0){ $cols[index - 1].attr('class', (shadowed ? 'highlight' : '')); }
+	};
+
 	$table
-		.delegate("td", "mouseover", function() {
-			var index = $(this).index();
-			if(index > 0){ $cols[index - 1].addClass('highlight'); }
-		})
-		.delegate("td", "mouseout", function() {
-			var index = $(this).index();
-			if(index > 0){ $cols[index - 1].removeClass('highlight'); }
-		});
+		.delegate("td", "mouseover", function() { cols_highlight($(this).index(), true); })
+		.delegate("td", "mouseout" , function() { cols_highlight($(this).index()); })
 });
 
 
