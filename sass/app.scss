@@ -1,32 +1,66 @@
+/* -----------------------------------------
+  Imports
+----------------------------------------- */
 @import 'compass';
-@import '_boilerplate';
-@import '_normalize';
+@import '_typography';
+@import '_mediaqueries';
 
-@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=latin,latin-ext,cyrillic);
+//@import '_boilerplate';
+//@import '_normalize';
+//@import '_typeplate';
 
-table, form, select, option, input,
-body { font: 14px/1.4em "PT Sans", sans-serif; }
-
+/* -----------------------------------------
+  Simple reset styles
+----------------------------------------- */
+* { padding: 0; margin: 0;  }
+body { padding: 3em; }
 a { color: #369; }
-
-.header-container header {
-	padding: 1em 0; 
-}
-
 .strike { text-decoration:line-through; }
 
+/* -----------------------------------------
+  Layout
+----------------------------------------- */
+
+.container {
+	& > header.banner {
+	}
+
+	& > footer.banner {
+	}
+	
+	& > .content {
+		overflow: hidden; padding-bottom: 2em; 
+
+		article, aside {
+			float: left;
+		}
+
+		article {
+			width: 60%; 
+			margin-right: 5%; 
+		}
+
+		aside {
+			width: 35%; 
+
+			section {
+				padding: 2em; 
+				background: #F9F9F9;
+				border: 1px solid #EEE; 
+			}
+		}
+	}
+}
+
+
+/* -----------------------------------------
+  JS & Table related styles
+----------------------------------------- */
 #jscontainer {
 	& header { overflow: hidden; padding: 0 0 1em 0;  }
 	& header h2 { margin: 0;  }
-	& header select {
-		display: inline;
-		font-size: 1em;
-		border: 1px solid #CCC;
-		padding: 0 0.3em; 
-		font-weight: bold; 
-		outline: none;
-		background: #EEE; 
-		//text-indent: 0em; 
+	& header select { 
+		display: inline; font-size: 1em; border: 1px solid #CCC; padding: 0 0.3em; font-weight: bold; outline: none; background: #EEE; 
 
 		@include appearance(none);
 		-moz-appearance: groupbox;
