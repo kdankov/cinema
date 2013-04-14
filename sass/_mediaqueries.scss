@@ -3,17 +3,31 @@
 and (min-device-width : 320px)
 and (max-device-width : 480px) {
 
-	body { padding: 1em; }
+	body { padding: 0;  }
 	body, table {   }
 	
-	.content header h2 {
-		font-size: 1em; 
-		line-height: 1.2em; 
-		span { display: none; }
+	.content header {
+
+		padding: 0.5em !important; 
+		margin: 0 !important; 
+		border-bottom: 1px solid #CCC; 
+		@include background-image(linear-gradient(top, #F8F8F8, #EBEBEB));
+		
+		h2 {
+			font-size: 1em; 
+			line-height: 1.2em; 
+
+			select { background: #FFF !important; } 
+			span { display: none; }
+		}
 	}
 
 	.content.explanation,
 	footer.banner { display: none; }
+
+	#table {
+		padding: 0 1em 1em 1em; 
+	}
 
 	#table table {
 		width: auto !important; 
@@ -30,6 +44,7 @@ and (max-device-width : 480px) {
 		}
 
 		th, td { 
+			font-size: 1.3em; 
 			display: inline;
 			padding: 0;
 			background: #FFF !important; 
@@ -64,8 +79,20 @@ and (max-width : 320px) {
 and (min-device-width : 768px)
 and (max-device-width : 1024px) {
 
-	body { font-size: 0.6em; line-height: 1.4em;  }
+	body { padding: 1em 0.5em; }
+	.content header h2 { font-size: 1.2em; padding-left: 0.5em;  } 
+	
+	#table table {
+		th, td {
+			padding: 0; 
+			font-size: 0.7em !important; 
+		}
+		td:first-child { padding: 0 0.5em; width: 30%;  }
+	}
 
+	.content.explanation,
+	footer.banner { display: none; }
+	
 }
 
 /* iPads (landscape) ----------- */
