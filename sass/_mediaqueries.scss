@@ -3,8 +3,48 @@
 and (min-device-width : 320px)
 and (max-device-width : 480px) {
 
-	body { font-size: 0.4em; line-height: 1.4em;  }
+	body { padding: 1em; }
+	body, table {   }
+	
+	.content header h2 {
+		font-size: 1em; 
+		line-height: 1.2em; 
+		span { display: none; }
+	}
 
+	.content.explanation,
+	footer.banner { display: none; }
+
+	#table table {
+		width: auto !important; 
+		table-layout: inherit !important;
+		border: none;
+		@include box-shadow(#EEE 0 0 0);
+		
+
+		tbody:nth-child(1) { display: none; }
+
+		tr { 
+			display: inline; 
+			padding: 0; 
+		}
+
+		th, td { 
+			display: inline;
+			padding: 0;
+			background: #FFF !important; 
+			border: none !important;
+		} 
+		
+		tbody td:nth-child(1) {
+			display: block; 
+			width: 100%; 
+			word-wrap: nowrap;
+			font-weight: bold; 
+			padding-top: 0.8em; 
+		}
+		
+	}
 }
 
 /* Smartphones (landscape) ----------- */
@@ -50,7 +90,8 @@ and (orientation : portrait) {
 and (min-width : 900px) {
 
 
-}
+
+}	
 
 /* Desktops and laptops ----------- */
 @media only screen

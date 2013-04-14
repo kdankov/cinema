@@ -3,7 +3,6 @@
 ----------------------------------------- */
 @import 'compass';
 @import '_typography';
-@import '_mediaqueries';
 
 //@import '_boilerplate';
 //@import '_normalize';
@@ -23,6 +22,7 @@ a { color: #369; }
 
 .container {
 	& > header.banner {
+		display: none;
 	}
 
 	& > footer.banner {
@@ -78,44 +78,79 @@ a { color: #369; }
 }
 
 #table {
+	padding: 5px; 
 	clear: both; 
 	overflow: auto; 
-	border: 2px solid #333;
+	/*border: 2px solid #333;*/
+	$table-border-color: #CCC;
+	$cell-border-color: #e0e0e0;
 
 	table { 
 		width: 100%;
-		min-width: 950px;
-		border-collapse: collapse;
-		border: none;
+		border-spacing: 0;
+		border: 1px solid $table-border-color;
 		table-layout: fixed;
 		background: #FFF;
 
-		tbody:nth-child(1) th { border-bottom: 1px solid #000; }
+		@include box-shadow(#EEE 0px 1px 2px);
+		@include border-top-left-radius(4px);
+		@include border-top-right-radius(4px);
 
 		th, td { 
-			border: 1px solid #CCC; padding: 3px 5px; text-align: center; cursor: default;
+			border: 1px solid $cell-border-color; 
+			border-top-color: #FFF;
+			border-left-color: #FFF;
+			padding: 5px 5px; 
+			text-align: center; cursor: default;
+			@include text-shadow(#FFF 1px 1px 0);
 
 			a { text-decoration: none; color: #000;  }
 			
-			&:nth-child(1) { width: 21%; background: #EEE; vertical-align: top; text-align: left; border-right: 1px solid #000; }
-			// &:hover::after { display: block; background-color: #EEE; position: absolute; top: -1000px; left: 0; content: '\00a0'; height: 1600px; width: 100%; z-index: -1; }
+			&:nth-child(1) { 
+				width: 21%;
+				vertical-align: top; text-align: left; 
+				/*border-right: 1px solid #000;*/
+
+				/*@extend .highlight;*/
+			}
 		}
 
-		tr:nth-child(1) th { background: #EEE; border-right: 1px solid #000;  }
+		tbody:nth-child(1) {
+			
+			th { 
+				/*border-bottom: 1px solid #000;*/
+				//background: #EEE; 
+				/*border-right: 1px solid #000; */
+				color: #666; 
+				@include background-image(linear-gradient(top, #F8F8F8, #EBEBEB));
+				@include text-shadow(#FFF 1px 1px 0);
+		   	}
+			
+			th:first-child {
+				@include border-top-left-radius(4px);
+				&::after {content: 'Филм';}
+			}
 
-		tr:hover {
+			th:last-child {
+				@include border-top-right-radius(4px);
+			}
+		}
+
+		tbody:nth-child(2) tr:hover {
 			td, th {
 				@extend .highlight;
-				&:hover { background: #000; color: #fff;  }
-				&:hover a { color: #FFF; }
+
+				&:hover { background: #EEE; border-top-color: #FFF; border-left-color: #FFF;  }
+				&:hover a {  }
 			}
-			
-			td:nth-child(1) { background: #000; color: #fff;   }
 		}
 
 		.highlight { 
-			background: #EEE;
-
+			background: #F9F9F9;
 		}
 	}
+
+
 }
+
+@import '_mediaqueries';

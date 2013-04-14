@@ -22,7 +22,10 @@ $(function(){
 		dd			= today.getDate(),
 
 		$table		= $('#table'),
+		$select_date = $('#date'),
+		$select_cinema = $('#cinema'),
 		$cols		= []
+
 	;
 
 	function update_table(day, cinema)
@@ -43,11 +46,6 @@ $(function(){
 		});	
 	}
 
-	$('<header><h2>Програма за </h2></header>').prependTo("#jscontainer");
-
-	$select_date = $('<select name="date" id="date" />');
-	$select_cinema = $('<select name="cinema" id="cinema" />');
-
 	for(var i = 0, day, month; i < 8; i++){
 
 		day = dd + i;
@@ -64,11 +62,8 @@ $(function(){
 		$select_cinema.append('<option value="' + cinema[i][1] + '">' + cinema[i][0] +'</option>');
 	}
 
-	
-	$("#jscontainer > header h2")
-		.append($select_date.change(function(){ update_table( $(this).val(), $("#cinema").val() ); }).appendTo("#jscontainer > header h2"))
-		.append($('<span> в </span>'))
-		.append($select_cinema.change(function(){ update_table( $("#date").val(), $(this).val() ); }).appendTo("#jscontainer > header h2"));
+	$select_date.change(function(){ update_table( $(this).val(), $("#cinema").val() ); });
+	$select_cinema.change(function(){ update_table( $("#date").val(), $(this).val() ); });
 
 	update_table(weekdays[0], cinema[0][1]);
 
