@@ -1,9 +1,9 @@
 // Variables & Config
-var debug = false;
+var debug = true;
 var cache_url = 'cache/';
 var months = ['Януари','Февруари','Март','Април','Май','Юни','Юли','Август','Септември','Октомври','Ноември','Декември'];
-var cinema = [['Mall Sofia', 'ms'], ['Paradise Center', 'pc']];
-	
+var cinema = [['Mall Sofia', 'ms'], ['Paradise Center', 'pc'], ['Мол Пловдив', 'mp'], ['Стара Загора', 'sz'], ['Русе', 'ru'], ['Бургас', 'bu']];
+
 // Functions
 function de(data) {
 	if(debug){
@@ -31,15 +31,21 @@ $(function(){
 	function update_table(day, cinema)
 	{
 		$table.load(cache_url + cinema + '-' + day + ".html table", function(data) {
-			$table.find('tr:gt(0)').each(function() // go through all rows (skip head row)
-			{
-				$(this).children().slice(1).each(function(i) // to through all cells (skip head cells) in the row and add them in the $cols array
+			if( $table.find('td').size() > 0 )
+			{ 
+				$table.removeClass('noprogram').find('tr:gt(0)').each(function() // go through all rows (skip head row)
 				{
-					if(!$cols[i]){ $cols[i] = []; }
-					$cols[i].push(this);
+					$(this).children().slice(1).each(function(i) // to through all cells (skip head cells) in the row and add them in the $cols array
+					{
+						if(!$cols[i]){ $cols[i] = []; }
+						$cols[i].push(this);
+					});
 				});
-			});
-			
+			}
+			else
+			{
+				$table.addClass('noprogram').append('<h4>Няма програма за този ден</h4>');
+			}
 			// for(var i in $cols){ $cols[i] = $($cols[i]); } // convert all cols to jquery objects
 
 			de(day + ' ' + cinema);

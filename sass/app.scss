@@ -72,7 +72,7 @@ a { color: #369; }
 
 		option {
 			padding: 0; 
-			height: 1.6em; 
+			height: 3em; 
 		}
 	}
 }
@@ -84,6 +84,8 @@ a { color: #369; }
 	/*border: 2px solid #333;*/
 	$table-border-color: #CCC;
 	$cell-border-color: #e0e0e0;
+	
+	&.noprogram table { display: none; }
 
 	table { 
 		width: 100%;
