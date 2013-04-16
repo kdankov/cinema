@@ -1,29 +1,54 @@
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen
-and (min-device-width : 320px)
-and (max-device-width : 480px) {
+and (max-width : 768px) {
 
 	body { padding: 0;  }
 	body, table {   }
 	
+	.container header.banner {
+		background: none; 
+		border: none; 
+		padding: 1em; margin: 0; 
+
+		h1 { font-size: 1.1em; }
+	}
+
 	.content header {
 
-		padding: 0.5em !important; 
+		padding: 0.5em 1em 0.2em 1em !important; 
 		margin: 0 !important; 
 		border-bottom: 1px solid #CCC; 
 		@include background-image(linear-gradient(top, #F8F8F8, #EBEBEB));
 		
-		h2 {
+		h3, h2 {
 			font-size: 1em; 
-			line-height: 1.2em; 
-
+			line-height: 1.9em; 
 			select { background: #FFF !important; } 
-			span { display: none; }
+			span { display: block; }
 		}
 	}
 
-	.content.explanation,
-	footer.banner { display: none; }
+	.content.explanation {
+		header {
+			border-top: 1px solid #CCC; 
+
+			h2, h3 { text-align: left; }
+		}
+
+		article, aside { 
+			float: none;
+			width: auto;
+			margin: 0; 
+
+			section {
+				padding: 1em; 
+			}
+		}
+
+	}
+	
+	footer.banner {
+	}
 
 	#table {
 		padding: 0 1em 1em 1em; 
@@ -35,7 +60,6 @@ and (max-device-width : 480px) {
 		border: none;
 		@include box-shadow(#EEE 0 0 0);
 		
-
 		tbody:nth-child(1) { display: none; }
 
 		tr { 
@@ -49,6 +73,8 @@ and (max-device-width : 480px) {
 			padding: 0;
 			background: #FFF !important; 
 			border: none !important;
+
+			a { padding-right: 0.2em; }
 		} 
 		
 		tbody td:nth-child(1) {
@@ -62,102 +88,3 @@ and (max-device-width : 480px) {
 	}
 }
 
-/* Smartphones (landscape) ----------- */
-@media only screen
-and (min-width : 321px) {
-
-}
-
-/* Smartphones (portrait) ----------- */
-@media only screen
-and (max-width : 320px) {
-
-}
-
-/* iPads (portrait and landscape) ----------- */
-@media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px) {
-
-	body { padding: 1em 0.5em; }
-	.content header h2 { font-size: 1.2em; padding-left: 0.5em;  } 
-	
-	#table table {
-		th, td {
-			padding: 0; 
-			font-size: 0.7em !important; 
-		}
-		td:first-child { padding: 0 0.5em; width: 30%;  }
-	}
-
-	.content.explanation,
-	footer.banner { display: none; }
-	
-}
-
-/* iPads (landscape) ----------- */
-@media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px)
-and (orientation : landscape) {
-	
-
-}
-
-/* iPads (portrait) ----------- */
-@media only screen
-and (max-device-width : 1024px)
-and (orientation : portrait) {
-
-
-}
-
-/* Desktops and laptops ----------- */
-@media only screen
-and (min-width : 900px) {
-
-
-
-}	
-
-/* Desktops and laptops ----------- */
-@media only screen
-and (min-width : 1024px) {
-
-
-}
-
-/* Desktops and laptops ----------- */
-@media only screen
-and (min-width : 1224px) {
-
-
-}
-
-/* Desktops and laptops ----------- */
-@media only screen
-and (min-width : 1400px) {
-
-
-}
-
-/* Large screens ----------- */
-@media only screen
-and (min-width : 1600px) {
-
-
-}
-
-/* Large screens ----------- */
-@media only screen
-and (min-width : 1800px) {
-
-
-}
-
-/* iPhone 4 ----------- */
-@media
-only screen and (-webkit-min-device-pixel-ratio : 1.5),
-only screen and (min-device-pixel-ratio : 1.5) {
-
-}

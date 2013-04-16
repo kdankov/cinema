@@ -12,6 +12,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes"> 
  		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
+
 		<link rel="apple-touch-startup-image" href="/startup.png">
         <link rel="stylesheet" href="css/app.css">
 
@@ -29,50 +30,42 @@
 
 		<div class="container">
 
-			<div class="content">
-				<div id="jscontainer">
-					<header>
-						<h3>
-							Прожекции в Cinema City 
-							<span>
-								<select name="cinema" id="cinema"></select>
-								за 
-								<select name="date" id="date"></select>
-							</span>
-						</h3>
-					</header>
-					<div id="table"></div>
-				</div>
-			</div>
+			<header class="banner">
+				<h1><a href="/">Програма на кино прожекциите в България</a></h1>
+				<p><a href="/">Обратно към програмата</a></p>
+			</header>
 
 			<div class="content explanation">
 
 				<article>
 					<header>
-						<h2>Защо съществува тази страница?</h2>
+						<h2>Планът за развитие</h2>
 					</header>
 					<section>
-						<p>Ходенето на кино е едно от любимите ми занимания. Обичам изживяването в кино салона и се стремя да гледам интересните фими в Софийските кина.</p>
-						<p>IMAX киното в Mall Sofia е киното което предпочитам. С години обаче се ядосвам всеки път когато искам да проверя кога какво дават и не съм близо до компютър. Сайтът на Cinema City е ужасен по подразбиране, но направо неизползваем на мобилни устройства.</p>
-						<p>Близо 4 години се дразня и мрънкам по този въпрос. В един момент ми писна и си помислих - "Аз правя сайтове по цял ден, защо да не направя една страничка къде да мога лесно да проверявам прожекциите?"</p>
-						<p>Така в рамките на 4 дни вече този сайт съществуваше. Това е!</p>
+						<p>Тази страничка възникна поради личната ми нужда от лесна за използване програма на кината, поради тази причина смятам че дори в текущият и вид съм надминал основните планове за фукционалност.</p>
+						<p>Интерфейсите тук ми предоставят интересно поле за изява на ниво мобилни устройства. Основното ми желание за развитието на сайта е да стане много удобен за ползване на мобилни устройства. Как и кога ще стане това нямам идея.</p>
+						<p>Целия <a href="http://github.com/kdankov/cinema">код може да намерите в GitHub</a>, къде можете да ми пратите Pull Request с вашето подобрение или да създадете <a href="http://github.com/kdankov/cinema/issues">запитване за добавяне на функционалност</a>.</p>
 					</section>
 				</article>
 
 				<aside>
 					<section>
-						<h3>Какво следва?</h3>
-						<p>Интересува те какви са плановете за развитие, какви нови възможности ще има тази страничка, ето къде може да разбереш:</p>
-						<ul>
-							<li><a href="todo.html">План за развитие.</a></li>
-							<li><a href="http://github.com/kdankov/cinema/issues">Създай запитване за функционалност</a></li>
-						</ul>
+						<h3>Задачки</h3>
+						<p>Тук ще записвам по-големите задачки които планирам да направя.</p>
+						<ol>
+							<li class="strike">Добавяне на всички кина Cinema City в България</li>
+							<li class="strike">Подобравяне на интерфейса за мобилни устройства</li>
+							<li>Добавяне на deep linking - възможност за пращане на линкове с избрано кино и дата</li>
+							<li>Добавяне на индикатор за час, минали и предстоящи прожекции</li>
+							<li>Евентуално добавяне на информацията за прожекции в Кино Арена</li>
+						</ol>
 					</section>
 				</aside>
 
 			</div>
 
 			<footer class="banner">
+				<p><a href="/">Обратно към програмата</a></p><br />
 				<p>Направено от <a href="http://twitter.com/thelazyerson">"Мързеливеца"</a> </p>
 			</footer>
 		</div>
@@ -80,8 +73,6 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 
-        <script src="js/main.js"></script>
-		
 		<script>
             var _gaq=[['_setAccount','UA-960497-11'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
@@ -90,3 +81,4 @@
         </script>
     </body>
 </html>
+
