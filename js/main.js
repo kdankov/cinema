@@ -1,7 +1,8 @@
 // Variables & Config
-var debug = true;
+var debug = false;
 var cache_url = 'cache/';
 var months = ['Януари','Февруари','Март','Април','Май','Юни','Юли','Август','Септември','Октомври','Ноември','Декември'];
+var dayoftheweek = [ 'Неделя', 'Понеделник', 'Вторник', 'Сряда', 'Четвъртък', 'Петък', 'Събота'];
 var cinema = [['Mall Sofia', 'ms'], ['Paradise Center', 'pc'], ['Мол Пловдив', 'mp'], ['Стара Загора', 'sz'], ['Русе', 'ru'], ['Бургас', 'bu']];
 
 // Functions
@@ -17,6 +18,7 @@ $(function(){
 
 	var today		= new Date(),
 		weekdays	= new Array(),
+		nn			= today.getDay(),
 		yyyy		= today.getFullYear(),
 		mm			= today.getMonth(), //January is 0!
 		dd			= today.getDate(),
@@ -27,6 +29,7 @@ $(function(){
 		$cols		= []
 
 	;
+		de(nn);
 
 	function update_table(day, cinema)
 	{
@@ -52,7 +55,7 @@ $(function(){
 		});	
 	}
 
-	for(var i = 0, day, month; i < 8; i++){
+	for(var i = 0, day, month; i < 7; i++){
 
 		day = dd + i;
 		month = mm + 1;
@@ -61,7 +64,8 @@ $(function(){
 
 		weekdays.push( yyyy + '-' + month + '-' + day );
 
-		$select_date.append('<option value="' + yyyy + '-' + month + '-' + day + '">' + (dd+i) + ' ' + months[mm] +'</option>');
+		$select_date.append('<option value="' + yyyy + '-' + month + '-' + day + '">' + dayoftheweek[(nn+i)%7] + ', ' + (dd+i) + ' ' + months[mm] +'</option>');
+
 	}
 
 	for(var i = 0; i < cinema.length; i++){
