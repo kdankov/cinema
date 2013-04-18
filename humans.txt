@@ -3,9 +3,14 @@
 
 # TEAM
 
-    Konstantin Dankov -- Developer -- @kdankov
+    Konstantin Dankov -- Developer
+	GitHub: kdankov
+	Twitter: @kdankov
+
+    Alexander Ivanov -- Code Contributor
+	GitHub: karamfil
 
 # TECHNOLOGY COLOPHON
 
-    HTML5, CSS3
+    HTML5, CSS3, SimplePHPDom
     jQuery, Modernizr

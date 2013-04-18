@@ -1,20 +1,17 @@
 /* -----------------------------------------
-  Imports
------------------------------------------ */
-@import 'compass';
-@import '_typography';
-
-//@import '_boilerplate';
-//@import '_normalize';
-//@import '_typeplate';
-
-/* -----------------------------------------
-  Simple reset styles
+  General styles
 ----------------------------------------- */
 * { padding: 0; margin: 0;  }
 body { padding: 3em; }
 a { color: #258; text-decoration: none;  }
 .strike { text-decoration:line-through; }
+.cleaner { height: 1px; overflow: hidden; clear: both; margin-bottom: 1em;  } 
+
+/* -----------------------------------------
+  Imports
+----------------------------------------- */
+@import 'compass';
+@import '_typography';
 
 /* -----------------------------------------
   Layout
@@ -28,11 +25,11 @@ a { color: #258; text-decoration: none;  }
 		border: 1px solid #EEE; 
 		margin-bottom: 2em; 
 		padding: 2em;
-		h1 { font-size: 1.4em; line-height: 1em; margin: 0;  } 
 		h1, p { padding: 0;  } 
 	}
 
 	& > header.banner {
+		h1 { font-size: 1.4em; line-height: 1em; margin: 0;  } 
 		p { padding-top: 0.5em; } 
 	}	
 
@@ -59,7 +56,6 @@ a { color: #258; text-decoration: none;  }
 		}
 	}
 }
-
 
 /* -----------------------------------------
   JS & Table related styles
@@ -119,18 +115,12 @@ a { color: #258; text-decoration: none;  }
 			&:nth-child(1) { 
 				width: 24%;
 				vertical-align: top; text-align: left; 
-				/*border-right: 1px solid #000;*/
-
-				/*@extend .highlight;*/
 			}
 		}
 
 		tbody:nth-child(1) {
 			
 			th { 
-				/*border-bottom: 1px solid #000;*/
-				//background: #EEE; 
-				/*border-right: 1px solid #000; */
 				color: #666; 
 				@include background-image(linear-gradient(top, #F8F8F8, #EBEBEB));
 				@include text-shadow(#FFF 1px 1px 0);
@@ -163,4 +153,33 @@ a { color: #258; text-decoration: none;  }
 
 }
 
+/* -----------------------------------------
+  Forms
+----------------------------------------- */
+section > form {
+	overflow: hidden; 
+	float: left;
+	margin-right: 1em; 
+}
+
+.donate-button {
+	border: 1px solid adjust-lightness(#ffb400, -10);
+	display: block; 
+	padding: 0.5em 2.5em; margin: 0; 
+	font-size: 1.2em;  line-height: 1em; 
+	color: #333; 
+	cursor: pointer;
+	
+	@include text-shadow(rgba(white, 0.6) 1px 1px 0);
+	@include border-radius(6px);
+	@include background-image(linear-gradient(#ffcc00, #ffb400));
+
+	&:hover {
+		@include background-image(linear-gradient(adjust-lightness(#ffcc00, 5), adjust-lightness(#ffb400, 5)));
+	}
+}
+
+/* -----------------------------------------
+  Media Queries
+----------------------------------------- */
 @import '_mediaqueries';
