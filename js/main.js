@@ -12,24 +12,37 @@ function de(data) {
 	}
 }
 
+function dateFormat(currentDate){
+	return dayoftheweek[currentDate.getDay()] + ", " + currentDate.getDate() + " " + months[currentDate.getMonth()]
+}
+
+function GetDates(startDate, daysToAdd) {
+	var aryDates = [];
+
+	for (var i = 0; i <= daysToAdd; i++) {
+		var currentDate = new Date();
+		currentDate.setDate(startDate.getDate() + i);
+		aryDates.push(currentDate);
+	}
+
+	return aryDates;
+}
+
 
 // When the HTML loads, may the fun begins!
 $(function(){
 
 	var today		= new Date(),
 		weekdays	= new Array(),
-		nn			= today.getDay(),
-		yyyy		= today.getFullYear(),
-		mm			= today.getMonth(), //January is 0!
-		dd			= today.getDate(),
 
 		$table		= $('#table'),
 		$select_date = $('#date'),
 		$select_cinema = $('#cinema'),
 		$cols		= []
-
 	;
-		de(nn);
+
+	var dates = GetDates(today, 7);
+	console.log(dates);
 
 	function update_table(day, cinema)
 	{
@@ -47,35 +60,24 @@ $(function(){
 			}
 			else
 			{
-				$table.addClass('noprogram').append('<h4>Няма програма за този ден</h4>');
+				$table.addClass('noprogram').html('<h4>Няма програма за този ден</h4>');
 			}
-			// for(var i in $cols){ $cols[i] = $($cols[i]); } // convert all cols to jquery objects
 
 			de(day + ' ' + cinema);
 		});	
 	}
 
-	for(var i = 0, day, month; i < 7; i++){
-
-		day = dd + i;
-		month = mm + 1;
-		if(day < 10){day = '0' + day} 
-		if(mm < 10){month = '0' + month} 
-
-		weekdays.push( yyyy + '-' + month + '-' + day );
-
-		$select_date.append('<option value="' + yyyy + '-' + month + '-' + day + '">' + dayoftheweek[(nn+i)%7] + ', ' + (dd+i) + ' ' + months[mm] +'</option>');
-
+	for(var i = 0, d; i < 7; i++){
+		d = dates[i]
+		$select_date.append('<option value="' + d.getFullYear() + '-' + ('0' + ( d.getMonth() + 1 ) ).slice(-2) + '-' + ( '0' + d.getDate() ).slice(-2) + '">' + dateFormat(dates[i]) + '</option>');
 	}
 
 	for(var i = 0; i < cinema.length; i++){
 		$select_cinema.append('<option value="' + cinema[i][1] + '">' + cinema[i][0] +'</option>');
 	}
 
-	$select_date.change(function(){ update_table( $(this).val(), $("#cinema").val() ); });
+	$select_date.change(function(){ update_table( $(this).val(), $("#cinema").val() ); }).change();
 	$select_cinema.change(function(){ update_table( $("#date").val(), $(this).val() ); });
-
-	update_table(weekdays[0], cinema[0][1]);
 
 	var cols_highlight = function (index, shadowed)
 	{
