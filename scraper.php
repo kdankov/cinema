@@ -15,7 +15,7 @@ $cinemacity_ids = array(
 );
 
 for($i=0; $i<7; $i++){
-	$weekdays[] = date("Y")."-".date("m")."-".(date("d")+$i);
+	$weekdays[] = date("Y")."-".date("m")."-".date("d",strtotime('+'.$i.' day'));
 }
 
 ?>
