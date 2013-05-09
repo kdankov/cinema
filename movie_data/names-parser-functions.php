@@ -1,6 +1,6 @@
 <?php
 /*
- * Lyubomir Popov <lyubo@lpopov.net>
+ * Lyubomir Popov https://github.com/lpopov/
  */
 
 
@@ -108,7 +108,7 @@ function removePunctuation($string){
 }
 
 
-function addImdbLinks($filename){
+function addInfoLinks($filename){
     try{
         $dbFilename = __DIR__ . '/movie_data.db';
         if(!file_exists($dbFilename)){
@@ -132,7 +132,7 @@ function addImdbLinks($filename){
             $movieName = str_ireplace("IMAX", "", $movieName);
             
             $findStmt = $db->prepare('
-                SELECT imdb_url FROM movie_data WHERE bg_title_clean = :bg_title_clean
+                SELECT imdb_url, programata_url FROM movie_data WHERE bg_title_clean = :bg_title_clean
             ');
             $findStmt->bindValue(':bg_title_clean', cleanString($movieName), SQLITE3_TEXT);
 
@@ -142,8 +142,9 @@ function addImdbLinks($filename){
             if(empty($movieData)){
                 echo $movieName. " not found\n";
             }else{
-                $tdMovieName->innertext = "<a href='".$movieData['imdb_url']."' target='_blank'>".
-                        $tdMovieName->plaintext."</a>";
+                $tdMovieName->innertext = $tdMovieName->plaintext;
+                $tdMovieName->innertext .= " <a href='".$movieData['programata_url']."' target='_blank'><em>програмата</em></a>";
+                $tdMovieName->innertext .= " <a href='".$movieData['imdb_url']."' target='_blank'><em>imdb</em></a>";
             }
             
         }
@@ -155,5 +156,22 @@ function addImdbLinks($filename){
         echo "Error adding links - ".$e->getMessage();
         return false;
     }
+    return true;
+}
+
+function saveUrlToFile($url, $filename){
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+    
+    $result = curl_exec($ch);
+    
+    file_put_contents($filename, $result);
+    
+    curl_close($ch);
+    
     return true;
 }
