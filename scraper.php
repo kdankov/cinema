@@ -3,6 +3,7 @@
 ini_set('display_errors', 1);
 
 require_once __DIR__ . '/simplehtmldom/simple_html_dom.php';
+require_once __DIR__ . '/movie_data/names-parser-functions.php';
 
 $scraper = new simple_html_dom();
 $cinemacity_ids = array( 
