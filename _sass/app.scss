@@ -149,6 +149,34 @@ a { color: #258; text-decoration: none;  }
 		}
 	}
 
+}
+
+#schedule {
+
+	ul {
+		
+		&, li { padding: 0; margin: 0; }
+
+		li {
+			list-style: none outside;
+		}
+	}
+
+	span { 
+		display: block;
+	}
+
+	.title {
+		b { 
+			display: inline-block;
+			background: #EEE;
+			border: 1px solid #CCC;
+			line-height: 1;
+			padding: 0.3em 0.4em;
+			margin-left: 0.5em; 
+		}
+	}
+
 
 }
 

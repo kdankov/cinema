@@ -1,9 +1,18 @@
 // Variables & Config
-var debug = false;
-var cache_url = 'cache/';
+var debug = true;
+var cache_url = 'cache/cinemacity/weekly/';
 var months = ['Януари','Февруари','Март','Април','Май','Юни','Юли','Август','Септември','Октомври','Ноември','Декември'];
 var dayoftheweek = [ 'Неделя', 'Понеделник', 'Вторник', 'Сряда', 'Четвъртък', 'Петък', 'Събота'];
-var cinema = [['Mall Sofia', 'ms'], ['Paradise Center', 'pc'], ['Мол Пловдив', 'mp'], ['Стара Загора', 'sz'], ['Русе', 'ru'], ['Бургас', 'bu']];
+var cinema = [
+	['Mall Sofia', '1010605'],
+	['Mall Sofia (IMAX)', '1010605'],
+	['Burgas', '1010601'],
+	['Paradise Center', '1010602'],
+	['Paradise Center (4DX)', '1010602'],
+	['Plovdiv', '1010603'],
+	['Rousse', '1010604'],
+	['Stara Zagora', '1010606']
+];
 
 // Functions
 function de(data) {
@@ -41,36 +50,61 @@ $(function(){
 	var today		= new Date(),
 		weekdays	= new Array(),
 
-		$table		= $('#table'),
+		$chedule	= $('#schedule'), 
 		$select_date = $('#date'),
 		$select_cinema = $('#cinema'),
 		$cols		= []
 	;
 
 	var dates = GetDates(today, 7);
-	console.log(dates);
+	//console.log(dates);
 
 	function update_table(day, cinema)
 	{
-		$table.load(cache_url + cinema + '-' + day + ".html table", function(data) {
-			if( $table.find('td').size() > 0 )
-			{ 
-				$table.removeClass('noprogram').find('tr:gt(0)').each(function() // go through all rows (skip head row)
-				{
-					$(this).children().slice(1).each(function(i) // to through all cells (skip head cells) in the row and add them in the $cols array
-					{
-						if(!$cols[i]){ $cols[i] = []; }
-						$cols[i].push(this);
-					});
-				});
-			}
-			else
-			{
-				$table.addClass('noprogram').html('<h4>Няма програма за този ден</h4>');
-			}
+		$chedule.html('');
+
+		$.getJSON( cache_url + cinema + '-' + day + ".json", function( data ) {
+
+			de( data );
 
 			de(day + ' ' + cinema);
-		});	
+			
+			$chedule.append('<ul />');
+
+			$.each( data, function(){
+				
+				de(this['screenings']);
+
+				$chedule.find('ul').append(
+					'<li>' + 
+						'<span class="title">' + this['title-en'] + (this['3D'] ? '<b>3D</b>' : '') + '</span>' +
+						'<span class="duration">' + this['duration'] + 'min </span>' +
+					'</li>'
+				);
+			
+			});
+
+		});
+
+		//$table.load(cache_url + cinema + '-' + day + ".html table", function(data) {
+			//if( $table.find('td').size() > 0 )
+			//{ 
+				//$table.removeClass('noprogram').find('tr:gt(0)').each(function() // go through all rows (skip head row)
+				//{
+					//$(this).children().slice(1).each(function(i) // to through all cells (skip head cells) in the row and add them in the $cols array
+					//{
+						//if(!$cols[i]){ $cols[i] = []; }
+						//$cols[i].push(this);
+					//});
+				//});
+			//}
+			//else
+			//{
+				//$table.addClass('noprogram').html('<h4>Няма програма за този ден</h4>');
+			//}
+
+			//de(day + ' ' + cinema);
+		//});	
 	}
 
 	for(var i = 0, d; i < 7; i++){
