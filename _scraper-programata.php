@@ -1,7 +1,12 @@
 <?php
 #!/usr/bin/php
 
-require_once __DIR__ . '/scraper.php';
+require_once __DIR__ . '/_scraper.php';
+
+echo "\n \n";
+echo "Scraping Programata.org for Bulgarian/English movie title matching. \n \n";
+
+$scraper = new simple_html_dom();
 
 $scraper->load_file('http://www.programata.bg/?p=30&l=1&c=1');
 $json =	__DIR__ . '/cache/programata/movies.json';

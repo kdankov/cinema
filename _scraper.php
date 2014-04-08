@@ -2,11 +2,11 @@
 
 ini_set('display_errors', 1);
 
-require_once __DIR__ . '/simplehtmldom/simple_html_dom.php';
-//require_once __DIR__ . '/movie_data/names-parser-functions.php';
+require_once __DIR__ . '/_simplehtmldom/simple_html_dom.php';
 
 $cinemacity_ids = array( 
 	array( 'Mall Sofia', 'ms', '1261' ),
+	array( 'Mall Sofia IMAX', 'imax', '1010605' ),
 	array( 'Paradise Center', 'pc', '1266' ),
 	array( 'Stara Zagora', 'sz', '1263' ),
 	array( 'Ruse', 'ru', '1264' ),
