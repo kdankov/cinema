@@ -1,4 +1,7 @@
-css
-cache
-deploy.sh
 .sass-cache
+cache
+
+css
+deploy.sh
+
+movie_data/movie_data.db

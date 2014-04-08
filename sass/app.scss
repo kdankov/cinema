@@ -2,7 +2,7 @@
   General styles
 ----------------------------------------- */
 * { padding: 0; margin: 0;  }
-body { padding: 3em; }
+body { padding: 3em; background: #FFF; }
 a { color: #258; text-decoration: none;  }
 .strike { text-decoration:line-through; }
 .cleaner { height: 1px; overflow: hidden; clear: both; margin-bottom: 1em;  } 
@@ -85,7 +85,6 @@ a { color: #258; text-decoration: none;  }
 	padding: 5px; 
 	clear: both; 
 	overflow: auto; 
-	/*border: 2px solid #333;*/
 	$table-border-color: #CCC;
 	$cell-border-color: #e0e0e0;
 	

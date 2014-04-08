@@ -12,6 +12,13 @@ function de(data) {
 	}
 }
 
+var updateStatusBar = navigator.userAgent.match(/iphone|ipad|ipod/i) &&
+	parseInt(navigator.appVersion.match(/OS (\d)/)[1], 10) >= 7;
+
+if (updateStatusBar) {
+	$('body').addClass('ios7');
+}
+
 function dateFormat(currentDate){
 	return dayoftheweek[currentDate.getDay()] + ", " + currentDate.getDate() + " " + months[currentDate.getMonth()]
 }
@@ -27,7 +34,6 @@ function GetDates(startDate, daysToAdd) {
 
 	return aryDates;
 }
-
 
 // When the HTML loads, may the fun begins!
 $(function(){
@@ -94,5 +100,3 @@ $(function(){
 		.delegate("td", "mouseover", function() { cols_highlight($(this).index(), true); })
 		.delegate("td", "mouseout" , function() { cols_highlight($(this).index()); })
 });
-
-
