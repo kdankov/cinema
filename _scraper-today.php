@@ -6,10 +6,14 @@ require_once __DIR__ . '/_scraper.php';
 echo "\n \n";
 echo "Generating daly data for all cinemas. \n \n";
 
-foreach( $cinemacity_ids as $c ) {
-	$url = 'http://demo5.sbnd.net/cinemacity/index.php?site_id='.$c[2].'&c_date='.$weekdays[0];
-	$json =	__DIR__ . '/cache/cinemacity/daily/'.$c[1].'-'.$weekdays[0].'.json';
-	parseCinemaCity( $url, $json );
+foreach( $cinemacity_ids as $cinema ) {
+
+	$url = 'http://cinemacity.bg/en/scheduleInfo?locationId='.$cinema['lid'].'&date='.$dates[0].'&hideSite=1';
+	$json =	__DIR__ . '/cache/cinemacity/daily/'.$cinema['lid'].'-'.$weekdays[0].'.json';
+	$html =	__DIR__ . '/cache/cinemacity/daily/'.$cinema['lid'].'-'.$weekdays[0].'.html';
+
+	parseCinemaCity( $url, $json, $html );
+
 }
 
 ?>

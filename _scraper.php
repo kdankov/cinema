@@ -4,40 +4,50 @@ ini_set('display_errors', 1);
 
 require_once __DIR__ . '/_simplehtmldom/simple_html_dom.php';
 
+$weekdays = array();
+$dates = array();
+
+$link = 'http://195.117.18.73/ReservationsBG?key=Sofia&ec=$PrsntCode$';
+
 $cinemacity_ids = array( 
-	array( 'Mall Sofia', 'ms', '1261' ),
-	array( 'Mall Sofia IMAX', 'imax', '1010605' ),
-	array( 'Paradise Center', 'pc', '1266' ),
-	array( 'Stara Zagora', 'sz', '1263' ),
-	array( 'Ruse', 'ru', '1264' ),
-	array( 'Burgas', 'bu', '1265' ),
-	array( 'Mall Plovdiv', 'mp', '1262' )
+	array( 'cinema' => 'Mall Sofia',			'lid' => '1010605', 'vtype' => '0', 'key' => 'Sofia' ),
+	array( 'cinema' => 'Mall Sofia (IMAX)',		'lid' => '1010605', 'vtype' => '2', 'key' => 'Sofia' ),
+	array( 'cinema' => 'Burgas',				'lid' => '1010601', 'vtype' => '1', 'key' => 'BGBurgas' ),
+	array( 'cinema' => 'Paradise Center',		'lid' => '1010602', 'vtype' => '0', 'key' => 'BGParadise' ),
+	array( 'cinema' => 'Paradise Center (4DX)', 'lid' => '1010602', 'vtype' => '5', 'key' => 'BGParadise' ),
+	array( 'cinema' => 'Plovdiv',				'lid' => '1010603', 'vtype' => '1', 'key' => 'plovdiv' ),
+	array( 'cinema' => 'Rousse',				'lid' => '1010604', 'vtype' => '1', 'key' => 'BGRuse' ),
+	array( 'cinema' => 'Stara Zagora',			'lid' => '1010606', 'vtype' => '1', 'key' => 'BGZagora' )
 );
 
 for($i=0; $i<7; $i++){
 	$weekdays[] = date("Y")."-".date("m")."-".date("d",strtotime('+'.$i.' day'));
 }
 
-function parseCinemaCity($url, $json){
+for($i=0; $i<7; $i++){
+	$dates[] = date("d",strtotime('+'.$i.' day'))."/".date("m")."/".date("Y");
+}
+
+function parseCinemaCity($url, $json, $html){
 	
 	$scraper = new simple_html_dom();
-	$scraper->load_file($url);
+	$scraper->load_file($html);
+	//$scraper->save($html);
 
 	$movies = array();
-	$screenings = array();
 
-	foreach( $scraper->find('td[class="movie_name"]') as $entry) {
-		$tr = $entry->parent();
+	foreach( $scraper->find('td[class="featureName"]') as $entry) {
 
-		foreach( $tr->find('td a') as $screening) {
-			if( $screening->innertext ) {
-				$screenings += array(
-					$screening->innertext => $screening->href
-				);
-			}
-		}
+		$screenings = array();
 
-		$movieName = $entry->plaintext;
+		$rating = $entry->next_sibling()->plaintext;
+		$language = $entry->next_sibling()->next_sibling()->next_sibling()->plaintext;
+		$duration = $entry->next_sibling()->next_sibling()->next_sibling()->next_sibling()->plaintext;
+
+		$movieName = $entry->first_child()->plaintext;
+		$infoLink = $entry->first_child()->attr["href"];
+		$featureCode = $entry->first_child()->attr["data-feature_code"];
+
 		$is2D = false;
 		$is3D = false;
 		$isA = false;
@@ -58,8 +68,23 @@ function parseCinemaCity($url, $json){
 		$movieName = str_ireplace(" 3D",	"", $movieName, $is3D);
 		$movieName = str_ireplace(" IMAX",	"", $movieName, $isIMAX);
 
+		foreach( $entry->parent()->find('td[class="prsnt"] a') as $screening ) {
+			if( $screening->innertext ) {
+
+				$screenings += array(
+					$screening->innertext => $screening->attr["data-prsnt_code"]
+				);
+
+			}
+		}
+
 		$movies[] = array(
-			'title_bg' => $movieName,
+			'title-en' => $movieName,
+			'info-link' => $infoLink,
+			'feature-code' => $featureCode,
+			'language' => $language,
+			'rating-en' => $rating,
+			'duration' => $duration,
 			'3D' => $is3D,
 			'A' => $isA,
 			'B' => $isB,
@@ -74,78 +99,7 @@ function parseCinemaCity($url, $json){
 	fclose($fp);
 
 	echo 'Created file at:' . $json . "\n";
-}
-
-/*
- * Contribution from:
- * Lyubomir Popov https://github.com/lpopov/
- */
-function getMovieImdb($movieTitle, $movieYear){
-    
-    $movieTitleOrig = $movieTitle;
-    $movieTitle = str_replace("3D", "", removePunctuation($movieTitle));
-    
-    $imdbScraper = new simple_html_dom();
-    
-    $cacheFile = __DIR__ . '/internal_cache/imdb_'.md5($movieTitle).'.html';
-    
-    if(file_exists($cacheFile)){
-        $imdbScraper->load_file($cacheFile);
-    }else{
-        $imdbScraper->load_file('http://www.imdb.com/find?s=tt&q='.urlencode($movieTitle));
-        $imdbScraper->save($cacheFile);
-    }    
-    
-    $movieAltTitle1 = str_ireplace(" and ", " & ", $movieTitle);
-    $movieAltTitle2 = str_ireplace(" & ", " and ", $movieTitle);
-
-    $movieTitle = cleanString($movieTitle);
-    $movieAltTitle1 = cleanString($movieAltTitle1);
-    $movieAltTitle2 = cleanString($movieAltTitle2);
-    
-    // Sometimes the years in the Programata are wrong.
-    // The first match with the wrong year is saved, but not returned, 
-    // in case there is correct title/year pair later in the list
-    $wrongYearData = array();
-    $movieLastYear = (string)($movieYear - 1);
-    
-    foreach ($imdbScraper->find('//td[class="result_text"]') as $result){
-        
-        $resultTextOrig = trim($result->plaintext);
-        $resultText = cleanString($result->plaintext);
-        
-        if(     (
-                    stripos($resultTextOrig,'(TV Episode)') === FALSE &&
-                    stripos($resultTextOrig,'(TV Series)') === FALSE
-                ) && (
-                    stripos($resultText,$movieTitle) !== FALSE ||
-                    stripos($resultText,$movieAltTitle1) !== FALSE ||
-                    stripos($resultText,$movieAltTitle2) !== FALSE 
-                ) && ( 
-                    stripos($resultText,$movieYear) !== FALSE ||
-                    stripos($resultText,$movieLastYear) !== FALSE 
-                ) )
-        {
-            $movieLink = $result->first_child();
-            $movieData = array(
-                'imdb_url'  =>  'http://imdb.com'.substr($movieLink->href, 0, strpos($movieLink->href,'?')),
-                'title'     => $resultTextOrig
-            );
-            
-            if(stripos($resultText,$movieYear) !== FALSE){
-                return $movieData;
-            }else{
-                if(empty($wrongYearData))
-                    $wrongYearData = $movieData;
-            }
-        }
-        
-        
-    }
-    
-    if(!empty($wrongYearData))
-        return $wrongYearData;
-    return false;
+	//echo 'Created file at:' . $html . "\n\n";
 }
 
 ?>

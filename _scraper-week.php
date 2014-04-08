@@ -6,12 +6,18 @@ require_once __DIR__ . '/_scraper.php';
 echo "\n \n";
 echo "Generating weekly data for all cinemas. \n \n";
 
-foreach( $weekdays as $weekdays[0] ) {
-	foreach( $cinemacity_ids as $c ) {
-		$url = 'http://demo5.sbnd.net/cinemacity/index.php?site_id='.$c[2].'&c_date='.$weekdays[0];
-		$json =	__DIR__ . '/cache/cinemacity/weekly/'.$c[1].'-'.$weekdays[0].'.json';
-		parseCinemaCity( $url, $json );
+$count = 0;
+
+foreach( $weekdays as $weekday ) {
+
+	foreach( $cinemacity_ids as $cinema ) {
+		$url = 'http://cinemacity.bg/en/scheduleInfo?locationId='.$cinema['lid'].'&date='.$dates[$count].'&hideSite=1';
+		$json =	__DIR__ . '/cache/cinemacity/weekly/'.$cinema['lid'].'-'.$weekday.'.json';
+		$html =	__DIR__ . '/cache/cinemacity/weekly/'.$cinema['lid'].'-'.$weekday.'.html';
+		parseCinemaCity( $url, $json, $html );
 	}
+
+	$count++;
 }
 
 ?>
