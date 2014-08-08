@@ -1,0 +1,59 @@
+/* -----------------------------------------
+Reset
+----------------------------------------- */
+* { padding: 0; margin: 0; }
+html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+*, *:before, *:after { -moz-box-sizing: inherit; -webkit-box-sizing: inherit; box-sizing: inherit; }
+
+/* -----------------------------------------
+Layout
+----------------------------------------- */
+body { padding: 3em; background: #34495e; min-width: 320px; }
+a { color: #258; text-decoration: none;  }
+.strike { text-decoration: line-through; }
+.cleaner { height: 1px; overflow: hidden; clear: both; margin-bottom: 1em;  } 
+
+.header h1.title { display: none; }
+
+.site {
+  border-radius: 0.4em;
+  overflow: hidden;
+  background: #EEE;
+  box-shadow: 0 0 15px rgba(0,0,0,0.8);
+}
+
+.content { clear: both; }
+.footer,
+.content article { padding: 0 2em 2em 2em; }
+
+/* -----------------------------------------
+JS & Table related styles
+----------------------------------------- */
+#jscontainer {
+  header { overflow: hidden; padding: 1.5em 2em; background: #f39c12; color: #FFF; }
+  header h3 { margin: 0; font-weight: normal;  }
+  header select { 
+    display: inline; font-size: 1em; border: 1px solid rgba(255,255,255,0.4); padding: 0 0.3em; font-weight: normal; outline: none; background: rgba(255,255,255,0.2); color: #FFF; cursor: pointer;
+
+    /*@include appearance(none);*/
+    -webkit-appearance: listbox;
+    -moz-appearance: groupbox;
+    -moz-padding: 0;
+
+    &:hover { background: rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.1); }
+
+    option { padding: 0; height: 3em; }
+  }
+}
+
+#schedule {
+  padding: 2em;
+  a:hover { text-decoration: underline; }
+}
+
+.ios7 {
+   	#jscontainer header { padding-top: 2em; }
+}
+body.ios7:before {
+	display: block; content: ''; width: 100%; height: 20px; position: fixed; left: 0; top: 0; background: #f39c12; z-index: 2000;
+}

@@ -38,6 +38,27 @@ function GetDates(startDate, daysToAdd) {
 
 // When the HTML loads, may the fun begin!
 $(function(){
+
+  WebFontConfig = {
+    google: {
+      families: [ 
+        'PT+Sans:400,700,400italic,700italic:cyrillic-ext,latin,latin-ext,cyrillic',
+        'PT+Sans+Narrow:400,700:cyrillic-ext,latin,latin-ext,cyrillic',
+        'Open+Sans:400italic,700italic,400,700:cyrillic-ext,latin,latin-ext,cyrillic',
+        'Open+Sans+Condensed:300,300italic,700:cyrillic-ext,latin,latin-ext,cyrillic'
+      ] 
+    }
+  };
+
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+
   $.getJSON('/js/cinemas.js', function(data){ 
     cinemas = data; 
 
@@ -55,16 +76,21 @@ $(function(){
     dates             = GetDates(today, 6);
 
     function update_table(day, cinemaid, vtype){
-
       $chedule.html('');
-
       $.getJSON( cache_url + cinemaid + '-' + vtype + '-' + day + ".json", function( data ) {
         $chedule.append('<ul />');
         $.each( data, function(index, el){
           $chedule.find('ul').append( Mustache.render(tplItem, el) );
+          $('.trailer a').magnificPopup({
+            disableOn: 700,
+            type: 'iframe',
+            mainClass: 'mfp-fade',
+            removalDelay: 160,
+            preloader: false,
+            fixedContentPos: false
+          });
         });
       });
-
     }
 
     $.each( dates, function(index, d){

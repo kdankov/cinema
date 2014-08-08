@@ -9,7 +9,7 @@ module.exports = function (grunt) {
 					includePaths: require('node-bourbon').includePaths
 				},
 				files: {
-					'css/app.css': '_sass/app.scss'
+					'css/app.css': 'sass/app.scss'
 				},
 			},
 			sourceMap: {
@@ -19,13 +19,13 @@ module.exports = function (grunt) {
 					includePaths: require('node-bourbon').includePaths
 				},
 				files: {
-					'css/app.css': '_sass/app.scss'
+					'css/app.css': 'sass/app.scss'
 				}
 			},
 		},
 		watch: {
 			scripts: {
-				files: ['_sass/*.scss'],
+				files: ['sass/*.scss'],
 				tasks: ['sass'],
 			},
 			livereload: {

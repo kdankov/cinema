@@ -1,0 +1,37 @@
+@media only screen 
+and (min-width : 1024px) {
+
+  #schedule ul li {
+    width: 50%; float: left;
+    min-height: 11em;
+
+    &:nth-child(2n+1) { padding-right: 1em; clear: both; }
+    &:nth-child(2n+2) { padding-left: 1em; }
+  }
+}
+
+@media only screen 
+and (max-width : 860px) {
+
+  body { font-size: 12px; }
+
+  header h3 span { display: block; padding-top: 0.5em; }
+}
+
+@media only screen 
+and (max-width : 550px) {
+
+  body { padding: 0; }
+  .site { border-radius: 0; }
+
+  header h3 span { display: block; padding-top: 0.5em; }
+}
+
+@media only screen 
+and (max-width : 471px) {
+
+  header h3 span select { width: 44%; }
+  
+}
+
+

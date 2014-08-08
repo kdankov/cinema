@@ -1,16 +1,17 @@
 <li>
+  <span class="poster"><img src="/cache/movies/posters/{{feature-code}}.jpg"></span>
   <span class="item">
     <span class="item-header">
       {{#title}}<span class="title">{{title}}</span>{{/title}}
-      {{#duration}}<span class="tag duration">{{duration}}min</span>{{/duration}}
+      {{#duration}}<span class="tag duration"><span class="fa fa-clock-o"></span> {{duration}}min</span>{{/duration}}
       {{#type}}<span class="tag type">{{type}}</span>{{/type}}
       {{#IMAX}}<span class="tag imax">IMAX</span>{{/IMAX}}
       {{#4DX}}<span class="tag 4dx">4DX</span>{{/4DX}}
       {{#3D}}<span class="tag 3d">3D</span>{{/3D}}
+      {{#trailer}}<span class="tag trailer"><a href="{{trailer}}">Trailer</a></span>{{/trailer}}
       <span class="tag information">
-        i
+        <span class="fa fa-info"></span>
         <span class="data">
-          <span class="poster"><img src="/cache/movies/posters/{{feature-code}}.jpg"></span>
           <span class="info">
             {{#synopsis}}{{synopsis}}{{/synopsis}}
           </span>
