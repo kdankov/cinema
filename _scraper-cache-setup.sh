@@ -1,7 +1,7 @@
 cd cache
-mkdir programata/
-mkdir cinemacity/
-mkdir cinemacity/daily
-mkdir cinemacity/weekly
+#mkdir cinemacity/
+#mkdir movies/
+#mkdir movies/posters/
+mkdir local/
 cd ..
 chmod -R 777 cache/

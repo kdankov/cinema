@@ -1,0 +1,25 @@
+/* -----------------------------------------
+Forms
+----------------------------------------- */
+section > form {
+  overflow: hidden; 
+  float: left;
+  margin-right: 1em; 
+}
+
+.donate-button {
+  border: 1px solid adjust-lightness(#ffb400, -10);
+  display: block; 
+  padding: 0.5em 2.5em; margin: 0; 
+  font-size: 1.2em;  line-height: 1em; 
+  color: #333; 
+  cursor: pointer;
+
+  /*@include text-shadow(rgba(white, 0.6) 1px 1px 0);*/
+  /*@include border-radius(6px);*/
+  /*@include background-image(linear-gradient(#ffcc00, #ffb400));*/
+
+  &:hover {
+    /*@include background-image(linear-gradient(adjust-lightness(#ffcc00, 5), adjust-lightness(#ffb400, 5)));*/
+  }
+}

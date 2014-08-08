@@ -1,4 +1,6 @@
 cd cache
-rm programata/*.json
-rm cinemacity/daily/*.json
-rm cinemacity/monthly/*.json
+rm -rf local/
+#rm -rf cinemacity/
+#rm -rf movies/
+cd ..
+./_scraper-cache-setup.sh

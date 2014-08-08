@@ -1,27 +1,25 @@
-@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=latin,latin-ext,cyrillic);
-
 /* --- Typography --- --- --- --- */
 
 body { -webkit-font-smoothing: inherit; }
 
-table, form, input, textarea, select, option,
+table, form, input, textarea, 
 body {
-	font: 14px/1.4em "PT Sans", sans-serif;
+  font: 14px/1.5 "PT Sans", sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-	font-family: "PT Sans", sans-serif; 
+h1, h2, h3, h4, h5, h6, select, option, {
+  font-family: "PT Sans Narrow", sans-serif; 
 }
 
 code, pre { font-family: Andale Mono, monospace; }
 
 h1, h2, h3, h4, h5, h6 { 
-	line-height: 1.2em;
-	margin-bottom: 0.5em;
+  line-height: 1.2em;
+  margin-bottom: 0.5em;
 }
 
 p + h1, p + h2, p + h3, p + h4, p + h5, p + h6 {
-	margin-top: 0.5em; 
+  margin-top: 0.5em; 
 }
 
 h1 { font-size: 2.8em; }
@@ -37,29 +35,29 @@ h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 {
 }
 
 blockquote {
-	position: relative; 
-	padding: 1em 2.5em;
-	margin: 0 5em 0 3em; 
-	font-style: italic;	
+  position: relative; 
+  padding: 1em 2.5em;
+  margin: 0 5em 0 3em; 
+  font-style: italic;	
 }
 
 blockquote:before {
-	content: '‟';
-	position: absolute;
-	top: 0.1em;
-	left: 0;
-	font-size: 5em;
-	line-height: 1em; 
-	color: #CCC; 
+  content: '‟';
+  position: absolute;
+  top: 0.1em;
+  left: 0;
+  font-size: 5em;
+  line-height: 1em; 
+  color: #CCC; 
 }
 
 ul, ol { 
-	padding-left: 1.5em; 
+  padding-left: 1.5em; 
 }
 
 li {
-	padding-bottom: 0.5em;
-	list-style-position: outside;
+  padding-bottom: 0.5em;
+  list-style-position: outside;
 }
 
 ul li { list-style-type: disc; }

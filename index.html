@@ -1,56 +1,56 @@
 ---
-layout: default
-title: Cinema @ TheLazyperson
+layout: main
+title: На Кино с Мързеливеца
 ---
 
 <div id="home">
 
-	<div class="content">
+  <div class="content">
 
-		<div id="jscontainer">
-			<header><h3>Прожекции в Cinema City <span><select name="cinema" id="cinema"></select> за <select name="date" id="date"></select></span></h3></header>
-			<div id="schedule"></div>
-		</div>
+    <div id="jscontainer">
+      <header><h3>Прожекции в Cinema City <span><select name="cinema" id="cinema"></select> за <select name="date" id="date"></select></span></h3></header>
+      <div id="schedule"></div>
+    </div>
 
-	</div>
+  </div>
 
-	<div class="content">
+  <div class="content">
 
-		<article>
-			<h2>Статии</h2>
-			<ul class="posts">
-				{% for post in site.posts %}
-				<li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-				{% endfor %}
-			</ul>
-		</article>
+    <article>
+      <h2>Статии</h2>
+      <ul class="posts">
+        {% for post in site.posts %}
+        <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </article>
 
-	</div>
+  </div>
 
-	<div class="content">
+  <div class="content">
 
-		<article>
-			<header>
-				<h2>Защо съществува тази страница?</h2>
-			</header>
-			<section>
-				<p>Ходенето на кино е едно от любимите ми занимания. Обичам изживяването в кино салона и се стремя да гледам интересните фими в Софийските кина.</p>
-				<p>IMAX киното в Mall Sofia е киното, което предпочитам. С години обаче се ядосвам всеки път, когато искам да проверя кога какво дават и не съм близо до компютър. Сайтът на Cinema City е ужасен по подразбиране, но направо неизползваем на мобилни устройства.</p>
-				<p>Близо 4 години се дразня и мрънкам по този въпрос. В един момент ми писна и си помислих - "Аз правя сайтове по цял ден, защо да не направя една страничка, където да мога лесно да проверявам прожекциите?"</p>
-			</section>
-		</article>
+    <article>
+      <header>
+        <h2>Защо съществува тази страница?</h2>
+      </header>
+      <section>
+        <p>Ходенето на кино е едно от любимите ми занимания. Обичам изживяването в кино салона и се стремя да гледам интересните фими в Софийските кина.</p>
+        <p>IMAX киното в Mall Sofia е киното, което предпочитам. С години обаче се ядосвам всеки път, когато искам да проверя кога какво дават и не съм близо до компютър. Сайтът на Cinema City е ужасен по подразбиране, но направо неизползваем на мобилни устройства.</p>
+        <p>Близо 4 години се дразня и мрънкам по този въпрос. В един момент ми писна и си помислих - "Аз правя сайтове по цял ден, защо да не направя една страничка, където да мога лесно да проверявам прожекциите?"</p>
+      </section>
+    </article>
 
-		<aside>
-			<section>
-				<h3>Какво следва?</h3>
-				<p>Интересува те какви са плановете за развитие, какви нови възможности ще има тази страничка, ето къде може да разбереш:</p>
-				<ul>
-					<li><a href="todo.html">План за развитие.</a></li>
-					<li><a href="http://github.com/kdankov/cinema/issues">Създай запитване за функционалност</a></li>
-				</ul>
-			</section>
-		</aside>
+    <aside>
+      <section>
+        <h3>Какво следва?</h3>
+        <p>Интересува те какви са плановете за развитие, какви нови възможности ще има тази страничка, ето къде може да разбереш:</p>
+        <ul>
+          <li><a href="todo.html">План за развитие.</a></li>
+          <li><a href="http://github.com/kdankov/cinema/issues">Създай запитване за функционалност</a></li>
+        </ul>
+      </section>
+    </aside>
 
-	</div>
+  </div>
 
 </div>

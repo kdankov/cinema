@@ -1,0 +1,60 @@
+/* -----------------------------------------
+Listing
+----------------------------------------- */
+
+#schedule {
+  padding-bottom: 2em;
+  a:hover { text-decoration: underline; }
+
+  ul {
+    padding: 0; margin: 0;
+    border: solid 1px #CCC;
+    border-width: 0 1px 1px 1px;
+
+    li {
+      list-style: none outside;
+      display: block;
+      position: relative;
+      border-top: solid 1px #CCC;
+      padding: 1em;
+      
+      &:after { display: block; content: ''; clear: both; }
+
+      span { display: block; }
+
+      .poster, .info { float: left; }
+      .poster { 
+        width: 20%;
+
+        img { display: block; width: 100%; }
+      }
+      .info { width: 75%; margin-left: 5%; }
+
+      .item-header { padding: 0 0 0.4em 0; }
+      .item-header:after { display: block; content: ''; clear: both; }
+
+      .tag, .title { float: left; }
+      .title { font-weight: bold; font-size: 1.4em; padding-left: 0; }
+      .tag { padding: 0.4em 0.6em; line-height: 1; border-radius: 0.5em; margin-left: 0.5em; background: rgba(0,0,0,0.05); }
+      
+      .information {
+        position: relative;
+
+        .data { display: none; position: absolute; left: 0; top: 100%; width: 500px; height: 200px; overflow: hidden; z-index: 1000; background: #fff; padding: 1em; border: 1px solid #CCC; }
+
+        &:hover {
+          cursor: pointer;
+          .data { display: block; }
+        }
+      }
+
+      .screenings { 
+        clear: both; overflow: hidden; margin-top: 0.5em; padding: 0.8em 1em 0 1em; border-radius: 0.5em; background: rgba(0,0,0,0.05); font-size: 1.2em; 
+
+        a { display: block; float: left; display: block; line-height: 1; padding: 0 1em 0 0; margin-bottom: 0.8em; }
+        a:first-child { padding-left: 0; }
+        a:last-child { border-right: none; padding-right: 0; }
+      }
+    }
+  }
+}

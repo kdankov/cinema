@@ -1,6 +1,7 @@
 .sass-cache
 cache
 _site
+node_modules
 
 css
 deploy.sh

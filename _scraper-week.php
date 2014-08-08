@@ -1,7 +1,7 @@
 <?php
 #!/usr/bin/php
 
-require_once __DIR__ . '/_scraper.php';
+require_once('_scraper.php');
 
 echo "\n \n";
 echo "Generating weekly data for all cinemas. \n \n";
@@ -10,14 +10,14 @@ $count = 0;
 
 foreach( $weekdays as $weekday ) {
 
-	foreach( $cinemacity_ids as $cinema ) {
-		$url = 'http://cinemacity.bg/en/scheduleInfo?locationId='.$cinema['lid'].'&date='.$dates[$count].'&hideSite=1';
-		$json =	__DIR__ . '/cache/cinemacity/weekly/'.$cinema['lid'].'-'.$weekday.'.json';
-		$html =	__DIR__ . '/cache/cinemacity/weekly/'.$cinema['lid'].'-'.$weekday.'.html';
-		parseCinemaCity( $url, $json, $html );
-	}
+  foreach( $cinemacity_ids as $cinema ) {
+    $url = 'http://cinemacity.bg/en/scheduleInfo?locationId='.$cinema['lid'].'&date='.$dates[$count].'&hideSite=1&venueTypeId='.$cinema['vtype'];
+    $html =	__DIR__ . '/cache/cinemacity/'.$cinema['lid'].'-'.$cinema['vtype'].'-'.$weekday.'.html';
+    $json =	__DIR__ . '/cache/local/'.$cinema['lid'].'-'.$cinema['vtype'].'-'.$weekday.'.json';
+    parseCinemaCity( $url, $json, $html );
+  }
 
-	$count++;
+  $count++;
 }
 
 ?>
