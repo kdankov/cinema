@@ -8,7 +8,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 /* -----------------------------------------
 Layout
 ----------------------------------------- */
-body { padding: 3em; background: #34495e; min-width: 320px; }
+body { min-width: 320px; }
 a { color: #258; text-decoration: none;  }
 .strike { text-decoration: line-through; }
 .cleaner { height: 1px; overflow: hidden; clear: both; margin-bottom: 1em;  } 
@@ -16,10 +16,10 @@ a { color: #258; text-decoration: none;  }
 .header h1.title { display: none; }
 
 .site {
-  border-radius: 0.4em;
+  /*border-radius: 0.4em;*/
   overflow: hidden;
   background: #EEE;
-  box-shadow: 0 0 15px rgba(0,0,0,0.8);
+  /*box-shadow: 0 0 15px rgba(0,0,0,0.4);*/
 }
 
 .content { clear: both; }
