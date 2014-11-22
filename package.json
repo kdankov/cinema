@@ -1,14 +1,18 @@
 {
   "name": "lazycinema",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "author": "Konstantin Dankov",
   "main": "Gruntfile.js",
   "dependencies": {
-    "grunt": "^0.4.4",
-    "node-sass": "~0.7.0",
-    "node-bourbon": "^1.2.3",
-    "grunt-sass": "^0.12.1"
+    "node-sass"    : "~0.7.0",
+    "node-bourbon" : "^1.2.3",
+	"node-curl"    : "latest",
+    "grunt"        : "^0.4.4",
+    "grunt-sass"   : "^0.12.1",
+    "request"      : "latest",
+    "request"      : "latest",
+    "cheerio"      : "latest"
   },
   "devDependencies": {
     "grunt-contrib-watch": "^0.6.1"

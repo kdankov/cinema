@@ -1,0 +1,42 @@
+{
+	"Mall Sofia" : {
+		"lid" : "1010605",
+		"vtype" : "0",
+		"key" : "Sofia"
+	},
+	"Mall Sofia (IMAX)" : {
+		"lid" : "1010605",
+		"vtype" : "2",
+		"key" : "Sofia"
+	},
+	"Burgas" : {
+		"lid" : "1010601",
+		"vtype" : "1",
+		"key" : "BGBurgas"
+	},
+	"Paradise Center" : {
+		"lid" : "1010602",
+		"vtype" : "0",
+		"key" : "BGParadise"
+	},
+	"Paradise Center (4DX)" : {
+		"lid" : "1010602",
+		"vtype" : "5",
+		"key" : "BGParadise"
+	},
+	"Plovdiv" : {
+		"lid" : "1010603",
+		"vtype" : "1",
+		"key" : "plovdiv"
+	},
+	"Rousse" : {
+		"lid" : "1010604",
+		"vtype" : "1",
+		"key" : "BGRuse"
+	},
+	"Stara Zagora" : {
+		"lid" : "1010606",
+		"vtype" : "1",
+		"key" : "BGZagora"
+	}
+}

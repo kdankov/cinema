@@ -133,8 +133,6 @@ function parseCinemaCity($url, $json, $html){
     $movieName = str_ireplace(" 3D",	"", $movieName, $is3D);
     $movieName = str_ireplace(" IMAX",	"", $movieName, $isIMAX);
 
-
-
     $movies[] = array(
       'title'         => $movieName,
       'poster'        => $poster,
