@@ -1,6 +1,6 @@
 // Functions
 function de(data) {
-  if(debug){ console.log(data); }
+	if(debug){ console.log(data); }
 }
 
 // Variables & Config
@@ -11,104 +11,124 @@ var months = ['Януари','Февруари','Март','Април','Май'
 var dayoftheweek = [ 'Неделя', 'Понеделник', 'Вторник', 'Сряда', 'Четвъртък', 'Петък', 'Събота'];
 var cinemas = ''; 
 var updateStatusBar = navigator.userAgent.match(/iphone|ipad|ipod/i) &&
-  parseInt(navigator.appVersion.match(/OS (\d)/)[1], 10) >= 7;
+	parseInt(navigator.appVersion.match(/OS (\d)/)[1], 10) >= 7;
 
-var traler = 'http://gdata.youtube.com/feeds/api/videos?q={title}-trailer&start-index=1&max-results=1&v=2&alt=json&hd'
+//var traler = 'http://gdata.youtube.com/feeds/api/videos?q={title}-trailer&start-index=1&max-results=1&v=2&alt=json&hd'
+var trailerspath	   = 'cache/movies/trailers/';
+
 
 // Functions
 if (updateStatusBar) {
-  $('body').addClass('ios7');
+	$('body').addClass('ios7');
 }
 
 function dateFormat(currentDate){
-  return dayoftheweek[currentDate.getDay()] + ", " + currentDate.getDate() + " " + months[currentDate.getMonth()]
+	return dayoftheweek[currentDate.getDay()] + ", " + currentDate.getDate() + " " + months[currentDate.getMonth()]
 }
 
 function GetDates(startDate, daysToAdd) {
-  var aryDates = [];
+	var aryDates = [];
 
-  for (var i = 0; i <= daysToAdd; i++) {
-    var currentDate = new Date();
-    currentDate.setDate(startDate.getDate() + i);
-    aryDates.push(currentDate);
-  }
+	for (var i = 0; i <= daysToAdd; i++) {
+		var currentDate = new Date();
+		currentDate.setDate(startDate.getDate() + i);
+		aryDates.push(currentDate);
+	}
 
-  return aryDates;
+	return aryDates;
 }
 
 // When the HTML loads, may the fun begin!
 $(function(){
 
-  WebFontConfig = {
-    google: {
-      families: [ 
-        'PT+Sans:400,700,400italic,700italic:cyrillic-ext,latin,latin-ext,cyrillic',
-        'PT+Sans+Narrow:400,700:cyrillic-ext,latin,latin-ext,cyrillic',
-        'Open+Sans:400italic,700italic,400,700:cyrillic-ext,latin,latin-ext,cyrillic',
-        'Open+Sans+Condensed:300,300italic,700:cyrillic-ext,latin,latin-ext,cyrillic'
-      ] 
-    }
-  };
+	WebFontConfig = {
+		google: {
+			families: [ 
+				'PT+Sans:400,700,400italic,700italic:cyrillic-ext,latin,latin-ext,cyrillic',
+				'PT+Sans+Narrow:400,700:cyrillic-ext,latin,latin-ext,cyrillic',
+				'Open+Sans:400italic,700italic,400,700:cyrillic-ext,latin,latin-ext,cyrillic',
+				'Open+Sans+Condensed:300,300italic,700:cyrillic-ext,latin,latin-ext,cyrillic'
+			] 
+		}
+	};
 
-  (function() {
-    var wf = document.createElement('script');
-    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-  })();
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})();
 
-  $.getJSON('/js/cinemas.js', function(data){ 
-    cinemas = data; 
+	$.getJSON('/js/cinemas.js', function(data){ 
+		cinemas = data; 
 
-    $.get('/js/templates/item.mst', function(template) {
-      tplItem = template;
-    });
+		$.get('/js/templates/item.mst', function(template) {
+			tplItem = template;
+		});
 
-    var today 	      = new Date(),
-    weekdays	      = new Array(),
+		var today 	      = new Date(),
+		weekdays	      = new Array(),
 
-    $select_cinema    = $('#cinema'),
-    $select_date      = $('#date'),
-    $chedule	      = $('#schedule'), 
+		$select_cinema    = $('#cinema'),
+		$select_date      = $('#date'),
+		$schedule	      = $('#schedule'), 
 
-    dates             = GetDates(today, 6);
+		dates             = GetDates(today, 6);
 
-    function update_table(day, cinemaid, vtype){
-      $chedule.html('');
-      $.getJSON( cache_url + cinemaid + '-' + vtype + '-' + day + ".json", function( data ) {
-        $chedule.append('<ul />');
-        $.each( data, function(index, el){
-          $chedule.find('ul').append( Mustache.render(tplItem, el) );
-          $('.trailer a').magnificPopup({
-            disableOn: 700,
-            type: 'iframe',
-            mainClass: 'mfp-fade',
-            removalDelay: 160,
-            preloader: false,
-            fixedContentPos: false
-          });
-        });
-      });
-    }
+		function update_table(day, cinemaid, vtype){
+			$schedule.html('');
+			$.getJSON( cache_url + cinemaid + '-' + vtype + '-' + day + ".json", function( data ) {
+				$schedule.append('<ul />');
+				$.each( data, function(index, el){
+					$schedule.find('ul').append( Mustache.render(tplItem, el) );
+					$('.trailer a')
+					.each(function(){
+						
+						var $this = $(this);
+						var movieName = $this.data('title');
+						var specialName = movieName.toLowerCase();
+						sepcialName = specialName.split(' ').join('_');
+						var path = trailerspath + sepcialName + '.json';
+						
+						//console.log(path);
 
-    $.each( dates, function(index, d){
-      $select_date.append('<option value="' + d.getFullYear() + '-' + ('0' + ( d.getMonth() + 1 ) ).slice(-2) + '-' + ( '0' + d.getDate() ).slice(-2) + '">' + dateFormat(d) + '</option>');
-    });
+						$.getJSON(path, function(data){ 
+							//console.log(data.link); 
+							$this
+							.attr('href', data.link)
+							.magnificPopup({
+								disableOn: 700,
+								type: 'iframe',
+								mainClass: 'mfp-fade',
+								removalDelay: 160,
+								preloader: false,
+								fixedContentPos: false
+							});
+						});
 
-    $.each( cinemas, function(index, item){
-      $select_cinema.append('<option value="' + item.lid + '" data-vtype="' + item.vtype + '">' + item.cinema +'</option>');
-    });
+					});
+				});
+			});
+		}
 
-    $select_date.change(function(){ 
-      update_table( $(this).val(), $("#cinema").find('option:selected').attr('value'), $("#cinema").find('option:selected').attr('data-vtype') ); 
-    }).change();
+		$.each( dates, function(index, d){
+			$select_date.append('<option value="' + d.getFullYear() + '-' + ('0' + ( d.getMonth() + 1 ) ).slice(-2) + '-' + ( '0' + d.getDate() ).slice(-2) + '">' + dateFormat(d) + '</option>');
+		});
 
-    $select_cinema.change(function(){ 
-      update_table( $("#date").val(), $(this).find('option:selected').attr('value'), $(this).find('option:selected').attr('data-vtype') ); 
-      console.log($(this).attr('data-vtype'));
-    });
+		$.each( cinemas, function(index, item){
+			$select_cinema.append('<option value="' + item.lid + '" data-vtype="' + item.vtype + '">' + item.cinema +'</option>');
+		});
 
-  });
+		$select_date.change(function(){ 
+			update_table( $(this).val(), $("#cinema").find('option:selected').attr('value'), $("#cinema").find('option:selected').attr('data-vtype') ); 
+		}).change();
+
+		$select_cinema.change(function(){ 
+			update_table( $("#date").val(), $(this).find('option:selected').attr('value'), $(this).find('option:selected').attr('data-vtype') ); 
+			//console.log($(this).attr('data-vtype'));
+		});
+
+	});
 });

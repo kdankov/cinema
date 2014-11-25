@@ -1,26 +1,27 @@
-var express = require('express');
-var fs = require('fs');
-var request = require('request');
-var cheerio = require('cheerio');
-var date = require('./phpdate.js');
-var strtotime = require('./strtotime.js');
-var app = express();
+var request        = require('request');
+var cheerio        = require('cheerio');
 
-var cinemacity_ids = require('./cinemas.json');
+var date           = require('./phpdate.js');
+var strtotime      = require('./strtotime.js');
+var c_ids		   = require('./cinemas.json');
 
-var weekdays = new Array();
-var dates = new Array();
+var weekdays       = new Array();
+var dates          = new Array();
+
+var trailerspath   = 'cache/movies/trailers/';
 
 for(var i=0; i<7; i++) {
-  weekdays[i] = date.date("Y") + "-" + date.date("m") + "-" + date.date("d", strtotime.strtotime('+' + i + ' day'));
+	weekdays[i] = date.date("Y") + "-" + date.date("m") + "-" + date.date("d", strtotime.strtotime('+' + i + ' day'));
 }
 
 for(var i=0; i<7; i++){
-  dates[i] = date.date("d",strtotime.strtotime('+' + i + ' day')) + "/" + date.date("m") + "/" + date.date("Y");
+	dates[i] = date.date("d",strtotime.strtotime('+' + i + ' day')) + "/" + date.date("m") + "/" + date.date("Y");
 }
 
 function grab_image( url, saveto ) {
-	request( url ).pipe(fs.createWriteStream( saveto ));
+	if ( !fs.existsSync(saveto) ) {
+		request( url ).pipe(fs.createWriteStream( saveto ));
+	}
 };
 
 function parseCinemaCity( url, json, htmlpath ){
@@ -30,7 +31,6 @@ function parseCinemaCity( url, json, htmlpath ){
 
 			var $ = cheerio.load(html);
 			var movies = [];
-
 
 			$('td.featureName').each(function(i, elem){
 				var data = $(this);
@@ -53,6 +53,17 @@ function parseCinemaCity( url, json, htmlpath ){
 				var isIMAX = false;
 				var is4DX  = false;
 
+				var movieinfo_url      = 'http://cinemacity.bg/en/featureInfo?featureCode=' + featureCode;
+				var movieinfo_html     = 'cache/movies/' + featureCode + '.html';
+				var movieinfo_poster   = 'cache/movies/posters/' + featureCode + '.jpg';
+
+				var movietrailer_url = 'http://gdata.youtube.com/feeds/api/videos?q=' + movieName.replace(' ', '+') + '-trailer&start-index=1&max-results=1&v=2&alt=json&hd';
+				var movietrailer_json = '';
+				var movietrailer_link = '';
+
+				var poster = '';
+				var synopsis = '';
+
 				data.parent().find('td.prsnt a').each(function(i, elem){
 
 					var time = $(elem).text();
@@ -71,27 +82,45 @@ function parseCinemaCity( url, json, htmlpath ){
 
 					screenings.push(screening);
 
-					//console.log( JSON.stringify(screenings, null, 4) );
-					//console.log( typeof screenings );
-					//console.log( '\n\n' );
-					
-
 				});
 
-				var movieinfo_url      = 'http://cinemacity.bg/en/featureInfo?featureCode=' + featureCode;
-			    var movieinfo_html     = 'cache/movies/' + featureCode + '.html';
-			    var movieinfo_poster   = 'cache/movies/posters/' + featureCode + '.jpg';
+				request(movietrailer_url, function(t_error, t_response, t_html){
+					if(!error){
 
-				var poster = '';
-				var synopsis = '';
+						movietrailer_json = JSON.parse(t_html);
+
+						if ( movietrailer_json['feed']['entry'] != undefined ) {
+
+							var trailerLink = movietrailer_json['feed']['entry'][0]['link'][0]['href'];
+							var trailerLink = trailerLink.split('?v=')[1].split('&')[0];
+							var trailerLink = 'http://www.youtube.com/watch?v=' + trailerLink;
+
+							movietrailer_link = trailerLink;
+
+							trailer = {
+								name : movieName,
+								link : trailerLink
+							}
+
+							var specialName = movieName.toLowerCase();
+							sepcialName = specialName.split(' ').join('_');
+							var path = trailerspath + sepcialName + '.json';
+
+							//fs.writeFile( path , JSON.stringify(trailer, null, 4), function(err){
+							//console.log('File successfully written! ' + path );
+							//})
+
+						}
+					}
+				});
 
 				request(movieinfo_url, function(error, response, html){
 					if(!error){
 						var $a = cheerio.load(html);
-						
+
 						poster = $a('div.poster_holder img').attr('src'); 
 						synopsis = $a('div.feature_info_synopsis').text(); 
-						
+
 						grab_image( poster, movieinfo_poster );
 					}
 				})
@@ -105,13 +134,10 @@ function parseCinemaCity( url, json, htmlpath ){
 				movieName = movieName.replace(" 3D", "");
 				movieName = movieName.replace(" IMAX", "");
 
-				//console.log('\n');
-
 				var movie = {
 					'title'         : movieName,
 					'poster'        : poster,
 					'feature-code'  : featureCode,
-					//'trailer'       : movietrailer_link,
 					'language'      : language,
 					'rating'        : rating,
 					'duration'      : duration,
@@ -126,58 +152,18 @@ function parseCinemaCity( url, json, htmlpath ){
 					'synopsis'      : synopsis,
 					'screenings'    : screenings
 				}
-				
+
 				movies.push(movie);
+
 			})
 
 		}
 
 		fs.writeFile( json, JSON.stringify(movies, null, 4), function(err){
-			console.log('File successfully written!');
+			console.log('File successfully written! ' + json );
 		})
 
 	})
 
 }
 
-app.get('/today', function(req, res){
-
-	for( var cinema in cinemacity_ids ) {
-	
-		url = 'http://cinemacity.bg/en/scheduleInfo?locationId=' + cinemacity_ids[cinema].lid + '&date=' + dates[0] + '&hideSite=1&venueTypeId=' + cinemacity_ids[cinema].vtype;
-		html = 'cache/cinemacity/' + cinemacity_ids[cinema].lid + '-' + cinemacity_ids[cinema].vtype + '-' + weekdays[0] + '.html';
-		json = 'cache/local/' + cinemacity_ids[cinema].lid + '-' + cinemacity_ids[cinema].vtype + '-' + weekdays[0] + '.json';
-
-		parseCinemaCity( url, json, html );
-		//console.log( url, json, html );
-	}
-
-	res.send('Check your console!')
-
-});
-
-app.get('/week', function(req, res){
-	
-	var count = 0;
-
-	for( var weekday in weekdays ) {
-
-		for( var cinema in cinemacity_ids ) {
-			var url = 'http://cinemacity.bg/en/scheduleInfo?locationId=' + cinemacity_ids[cinema].lid + '&date=' + dates[count] + '&hideSite=1&venueTypeId=' + cinemacity_ids[cinema].vtype;
-			var html = 'cache/cinemacity/' + cinemacity_ids[cinema].lid + '-' + cinemacity_ids[cinema].vtype + '-' + weekdays[weekday] + '.html';
-			var json = 'cache/local/' + cinemacity_ids[cinema].lid + '-' + cinemacity_ids[cinema].vtype + '-' + weekdays[weekday] + '.json';
-
-			parseCinemaCity( url, json, html );
-			//console.log( url, json, html );
-		}
-
-		count++;
-	}
-
-	res.send('Check your console!')
-	
-});
-
-app.listen('8081')
-console.log('Magic happens on port 8081');
-exports = module.exports = app; 	

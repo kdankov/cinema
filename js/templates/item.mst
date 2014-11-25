@@ -8,7 +8,7 @@
       {{#IMAX}}<span class="tag imax">IMAX</span>{{/IMAX}}
       {{#4DX}}<span class="tag 4dx">4DX</span>{{/4DX}}
       {{#3D}}<span class="tag 3d">3D</span>{{/3D}}
-      {{#trailer}}<span class="tag trailer"><a href="{{trailer}}">Trailer</a></span>{{/trailer}}
+      <span class="tag trailer"><a data-title="{{title}}" href="#">Trailer</a></span>
       <span class="tag information">
         <span class="fa fa-info"></span>
         <span class="data">
