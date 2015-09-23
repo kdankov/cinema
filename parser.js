@@ -33,10 +33,6 @@ function parseCinemaCity( url, json, htmlpath ){
 			var $ = cheerio.load(html);
 			var movies = [];
 
-			fs.writeFile( 'cache/movies/test.html', html, function(err){
-				console.log('Done! ');
-			})
-
 			$('td.featureName').each(function(i, elem){
 				var data = $(this);
 

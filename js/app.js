@@ -14,7 +14,7 @@ var updateStatusBar = navigator.userAgent.match(/iphone|ipad|ipod/i) &&
 	parseInt(navigator.appVersion.match(/OS (\d)/)[1], 10) >= 7;
 
 //var traler = 'http://gdata.youtube.com/feeds/api/videos?q={title}-trailer&start-index=1&max-results=1&v=2&alt=json&hd'
-var trailerspath	   = 'cache/movies/trailers/';
+//var trailerspath	   = 'cache/movies/trailers/';
 
 
 // Functions
@@ -64,7 +64,7 @@ $(function(){
 	$.getJSON('/js/cinemas.js', function(data){ 
 		cinemas = data; 
 
-		$.get('/js/templates/item.mst', function(template) {
+		$.get('/js/templates/item.mustache', function(template) {
 			tplItem = template;
 		});
 
@@ -83,32 +83,33 @@ $(function(){
 				$schedule.append('<ul />');
 				$.each( data, function(index, el){
 					$schedule.find('ul').append( Mustache.render(tplItem, el) );
-					$('.trailer a')
-					.each(function(){
-						
-						var $this = $(this);
-						var movieName = $this.data('title');
-						var specialName = movieName.toLowerCase();
-						sepcialName = specialName.split(' ').join('_');
-						var path = trailerspath + sepcialName + '.json';
-						
-						//console.log(path);
+					$('.trailer a').remove();
 
-						$.getJSON(path, function(data){ 
-							//console.log(data.link); 
-							$this
-							.attr('href', data.link)
-							.magnificPopup({
-								disableOn: 700,
-								type: 'iframe',
-								mainClass: 'mfp-fade',
-								removalDelay: 160,
-								preloader: false,
-								fixedContentPos: false
-							});
-						});
+					//.each(function(){
+						
+						//var $this = $(this);
+						//var movieName = $this.data('title');
+						//var specialName = movieName.toLowerCase();
+						//sepcialName = specialName.split(' ').join('_');
+						//var path = trailerspath + sepcialName + '.json';
+						
+						////console.log(path);
 
-					});
+						//$.getJSON(path, function(data){ 
+							////console.log(data.link); 
+							//$this
+							//.attr('href', data.link)
+							//.magnificPopup({
+								//disableOn: 700,
+								//type: 'iframe',
+								//mainClass: 'mfp-fade',
+								//removalDelay: 160,
+								//preloader: false,
+								//fixedContentPos: false
+							//});
+						//});
+
+					//});
 				});
 			});
 		}
