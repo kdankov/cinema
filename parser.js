@@ -62,9 +62,9 @@ function parseCinemaCity( url, json, htmlpath ){
 				var movieinfo_html     = 'cache/movies/' + featureCode + '.html';
 				var movieinfo_poster   = 'cache/movies/posters/' + featureCode + '.jpg';
 
-				var movietrailer_url = 'http://gdata.youtube.com/feeds/api/videos?q=' + movieName.replace(' ', '+') + '-trailer&start-index=1&max-results=1&v=2&alt=json&hd';
-				var movietrailer_json = '';
-				var movietrailer_link = '';
+				//var movietrailer_url = 'http://gdata.youtube.com/feeds/api/videos?q=' + movieName.replace(' ', '+') + '-trailer&start-index=1&max-results=1&v=2&alt=json&hd';
+				//var movietrailer_json = '';
+				//var movietrailer_link = '';
 
 				var poster = '';
 				var synopsis = '';
@@ -89,35 +89,35 @@ function parseCinemaCity( url, json, htmlpath ){
 
 				});
 
-				request(movietrailer_url, function(t_error, t_response, t_html){
-					if(!error){
+				//request(movietrailer_url, function(t_error, t_response, t_html){
+					//if(!error){
 
-						movietrailer_json = JSON.parse(t_html);
+						//movietrailer_json = JSON.parse(t_html);
 
-						if ( movietrailer_json['feed']['entry'] != undefined ) {
+						//if ( movietrailer_json['feed']['entry'] != undefined ) {
 
-							var trailerLink = movietrailer_json['feed']['entry'][0]['link'][0]['href'];
-							var trailerLink = trailerLink.split('?v=')[1].split('&')[0];
-							var trailerLink = 'http://www.youtube.com/watch?v=' + trailerLink;
+							//var trailerLink = movietrailer_json['feed']['entry'][0]['link'][0]['href'];
+							//var trailerLink = trailerLink.split('?v=')[1].split('&')[0];
+							//var trailerLink = 'http://www.youtube.com/watch?v=' + trailerLink;
 
-							movietrailer_link = trailerLink;
+							//movietrailer_link = trailerLink;
 
-							trailer = {
-								name : movieName,
-								link : trailerLink
-							}
+							//trailer = {
+								//name : movieName,
+								//link : trailerLink
+							//}
 
-							var specialName = movieName.toLowerCase();
-							sepcialName = specialName.split(' ').join('_');
-							var path = trailerspath + sepcialName + '.json';
+							//var specialName = movieName.toLowerCase();
+							//sepcialName = specialName.split(' ').join('_');
+							//var path = trailerspath + sepcialName + '.json';
 
-							//fs.writeFile( path , JSON.stringify(trailer, null, 4), function(err){
-							//console.log('File successfully written! ' + path );
-							//})
+							////fs.writeFile( path , JSON.stringify(trailer, null, 4), function(err){
+							////console.log('File successfully written! ' + path );
+							////})
 
-						}
-					}
-				});
+						//}
+					//}
+				//});
 
 				request(movieinfo_url, function(error, response, html){
 					if(!error){
