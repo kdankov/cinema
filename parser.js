@@ -1,21 +1,22 @@
-var request        = require('request');
-var cheerio        = require('cheerio');
+require('date-util');
 
-var date           = require('./phpdate.js');
-var strtotime      = require('./strtotime.js');
-var c_ids		   = require('./cinemas.json');
+var request			= require('request');
+var cheerio			= require('cheerio');
+var jsDate			= require('js-date');
 
-var weekdays       = new Array();
-var dates          = new Array();
+var c_ids			= require('./cinemas.json');
+
+var weekdays		= new Array();
+var dates			= new Array();
 
 var trailerspath   = 'cache/movies/trailers/';
 
 for(var i=0; i<7; i++) {
-	weekdays[i] = date.date("Y") + "-" + date.date("m") + "-" + date.date("d", strtotime.strtotime('+' + i + ' day'));
+	weekdays[i] = jsDate.date("Y") + "-" + jsDate.date("m") + "-" + jsDate.date("d", new Date().strtotime('+' + i + ' day'));
 }
 
 for(var i=0; i<7; i++){
-	dates[i] = date.date("d",strtotime.strtotime('+' + i + ' day')) + "/" + date.date("m") + "/" + date.date("Y");
+	dates[i] = jsDate.date("d", new Date().strtotime('+' + i + ' day')) + "/" + jsDate.date("m") + "/" + jsDate.date("Y");
 }
 
 function grab_image( url, saveto ) {
@@ -31,6 +32,10 @@ function parseCinemaCity( url, json, htmlpath ){
 
 			var $ = cheerio.load(html);
 			var movies = [];
+
+			fs.writeFile( 'cache/movies/test.html', html, function(err){
+				console.log('Done! ');
+			})
 
 			$('td.featureName').each(function(i, elem){
 				var data = $(this);
@@ -125,14 +130,18 @@ function parseCinemaCity( url, json, htmlpath ){
 					}
 				})
 
+				movieName.indexOf("4DX") > -1 ? is4DX = true : '';
+				movieName.indexOf("3D") > -1 ? is3D = true : '';
+				movieName.indexOf("IMAX") > -1 ? isIMAX = true : '';
+	
+				movieName = movieName.replace(" 4DX", "");
+				movieName = movieName.replace(" 3D", "");
+				movieName = movieName.replace(" IMAX", "");
 				movieName = movieName.replace(" (A)", "");
 				movieName = movieName.replace(" (B)", "");
 				movieName = movieName.replace(" (С)", "");
 				movieName = movieName.replace(" (D)", "");
-				movieName = movieName.replace(" 4DX", "");
 				movieName = movieName.replace(" 2D", "");
-				movieName = movieName.replace(" 3D", "");
-				movieName = movieName.replace(" IMAX", "");
 
 				var movie = {
 					'title'         : movieName,

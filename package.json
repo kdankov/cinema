@@ -5,15 +5,16 @@
   "author": "Konstantin Dankov",
   "main": "Gruntfile.js",
   "dependencies": {
-    "node-sass"    : "~0.7.0",
-    "node-bourbon" : "^1.2.3",
-	"node-curl"    : "latest",
-    "grunt"        : "^0.4.4",
-    "grunt-sass"   : "^0.12.1",
-    "request"      : "latest",
-    "request"      : "latest",
-    "express"      : "latest",
-    "cheerio"      : "latest"
+    "date-util": "^1.2.0",
+    "js-date": "^0.1.2",
+    "cheerio": "latest",
+    "express": "latest",
+    "grunt": "^0.4.4",
+    "grunt-sass": "^0.12.1",
+    "node-bourbon": "^1.2.3",
+    "node-curl": "latest",
+    "node-sass": "~0.7.0",
+    "request": "latest"
   },
   "devDependencies": {
     "grunt-contrib-watch": "^0.6.1"
