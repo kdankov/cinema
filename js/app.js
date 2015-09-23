@@ -13,9 +13,8 @@ var cinemas = '';
 var updateStatusBar = navigator.userAgent.match(/iphone|ipad|ipod/i) &&
 	parseInt(navigator.appVersion.match(/OS (\d)/)[1], 10) >= 7;
 
-//var traler = 'http://gdata.youtube.com/feeds/api/videos?q={title}-trailer&start-index=1&max-results=1&v=2&alt=json&hd'
-//var trailerspath	   = 'cache/movies/trailers/';
-
+var traler = 'http://gdata.youtube.com/feeds/api/videos?q={title}-trailer&start-index=1&max-results=1&v=2&alt=json&hd'
+var trailerspath   = 'cache/movies/trailers/';
 
 // Functions
 if (updateStatusBar) {
@@ -82,34 +81,21 @@ $(function(){
 			$.getJSON( cache_url + cinemaid + '-' + vtype + '-' + day + ".json", function( data ) {
 				$schedule.append('<ul />');
 				$.each( data, function(index, el){
-					$schedule.find('ul').append( Mustache.render(tplItem, el) );
-					$('.trailer a').remove();
 
-					//.each(function(){
+					var movieName = el.title;
+					var specialName = movieName.toLowerCase();
+
+					sepcialName = specialName.split(' ').join('_');
+
+					$.getJSON(trailerspath + sepcialName + '.json', function(data){ 
+
+						if (data.link) {
+							el.trailer = data.link
+						}
 						
-						//var $this = $(this);
-						//var movieName = $this.data('title');
-						//var specialName = movieName.toLowerCase();
-						//sepcialName = specialName.split(' ').join('_');
-						//var path = trailerspath + sepcialName + '.json';
-						
-						////console.log(path);
+						$schedule.find('ul').append( Mustache.render(tplItem, el) );
+					});
 
-						//$.getJSON(path, function(data){ 
-							////console.log(data.link); 
-							//$this
-							//.attr('href', data.link)
-							//.magnificPopup({
-								//disableOn: 700,
-								//type: 'iframe',
-								//mainClass: 'mfp-fade',
-								//removalDelay: 160,
-								//preloader: false,
-								//fixedContentPos: false
-							//});
-						//});
-
-					//});
 				});
 			});
 		}
@@ -128,8 +114,18 @@ $(function(){
 
 		$select_cinema.change(function(){ 
 			update_table( $("#date").val(), $(this).find('option:selected').attr('value'), $(this).find('option:selected').attr('data-vtype') ); 
-			//console.log($(this).attr('data-vtype'));
 		});
 
 	});
+
+	$('#schedule').magnificPopup({
+		delegate: '.trailer a',
+		disableOn: 700,
+		type: 'iframe',
+		mainClass: 'mfp-fade',
+		removalDelay: 360,
+		preloader: 1,
+		fixedContentPos: false
+	});
+
 });
