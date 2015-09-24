@@ -4,11 +4,11 @@ var browserSync = require('browser-sync').create();
 var $ = require('gulp-load-plugins')();
 
 var path = {
-		SCSS_SRC	: './source/scss/**/*.scss',
-		SCSS_DST	: './app/css',
+		SCSS_SRC	: './sass/**/*.scss',
+		SCSS_DST	: './css',
 
 		JADE_SRC	: './source/jade/**/*.jade',
-		JADE_DST	: './app'
+		JADE_DST	: './'
 	}
 	
 gulp.task('sass', function () {
@@ -21,7 +21,7 @@ gulp.task('sass', function () {
 	.pipe($.sourcemaps.write('map'))
 	.pipe($.filesize())
 	.pipe(gulp.dest( path.SCSS_DST ))
-    .pipe(browserSync.stream({ match: '**/*.css' }))
+    .pipe(browserSync.stream({ match: 'css/**/*.css' }))
 	//.pipe($.livereload())
 	;
 });
@@ -41,7 +41,6 @@ gulp.task('jade', function () {
 gulp.task('watch', function() {
 	$.livereload.listen();
 	gulp.watch( path.SCSS_SRC, ['sass']);
-	gulp.watch( path.JADE_SRC, ['jade']);
 });
 
 // Static Server + watching scss/html files
@@ -52,8 +51,9 @@ gulp.task('serve', ['sass'], function() {
     });
 
 	gulp.watch( path.SCSS_SRC, ['sass']);
-    gulp.watch("app/*.html").on('change', browserSync.reload);
+    gulp.watch("css/*.css").on('change', browserSync.reload);
+    gulp.watch("*.html").on('change', browserSync.reload);
 });
 
 // Creating a default task
-gulp.task('default', ['sass', 'jade', 'serve']);
+gulp.task('default', ['sass', 'serve']);

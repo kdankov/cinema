@@ -37,6 +37,49 @@ function GetDates(startDate, daysToAdd) {
 	return aryDates;
 }
 
+function getTime() {
+
+    var date = new Date();
+
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+
+    var sec  = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+
+    var year = date.getFullYear();
+
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+
+    return hour + ":" + min;
+}
+
+function dateCompare(time1,time2) {
+	var t1 = new Date();
+	var parts = time1.trim().split(":");
+
+	t1.setHours(parts[0],parts[1]);
+
+	var t2 = new Date();
+	parts = time2.trim().split(":");
+
+	t2.setHours(parts[0],parts[1]);
+
+	// returns 1 if greater, -1 if less and 0 if the same
+	if ( t1.getTime() > t2.getTime() ) return 1;
+
+	if ( t1.getTime() < t2.getTime() ) return -1;
+
+	return 0;
+}
+
 // When the HTML loads, may the fun begin!
 $(function(){
 
@@ -60,6 +103,8 @@ $(function(){
 		s.parentNode.insertBefore(wf, s);
 	})();
 
+	var time = getTime();
+
 	$.getJSON('/js/cinemas.js', function(data){ 
 		cinemas = data; 
 
@@ -77,23 +122,35 @@ $(function(){
 		dates             = GetDates(today, 6);
 
 		function update_table(day, cinemaid, vtype){
+
 			$schedule.html('');
+
 			$.getJSON( cache_url + cinemaid + '-' + vtype + '-' + day + ".json", function( data ) {
 				$schedule.append('<ul />');
 				$.each( data, function(index, el){
 
 					var movieName = el.title;
 					var specialName = movieName.toLowerCase();
+					var $list = $schedule.find('ul');
 
 					sepcialName = specialName.split(' ').join('_');
 
 					$.getJSON(trailerspath + sepcialName + '.json', function(data){ 
 
-						if (data.link) {
-							el.trailer = data.link
-						}
-						
-						$schedule.find('ul').append( Mustache.render(tplItem, el) );
+						if (data.link) el.trailer = data.link;
+
+						$.each( el.screenings, function(index, el){
+							
+
+							if ( dateCompare( el.time, time ) == 1  ) {
+								el.show = 'true';
+							} else {
+								el.show = 'false';
+							}
+
+						});
+
+						$list.append( Mustache.render(tplItem, el) );
 					});
 
 				});
@@ -110,6 +167,16 @@ $(function(){
 
 		$select_date.change(function(){ 
 			update_table( $(this).val(), $("#cinema").find('option:selected').attr('value'), $("#cinema").find('option:selected').attr('data-vtype') ); 
+			
+			var today = new Date();
+			var today = today.getFullYear() + '-' + ('0' + ( today.getMonth() + 1 ) ).slice(-2) + '-' + ( '0' + today.getDate() ).slice(-2);
+
+			if( today == $("#date").val() ) {
+				$('#schedule').addClass('today');
+			} else {
+				$('#schedule').removeClass('today');
+			}
+
 		}).change();
 
 		$select_cinema.change(function(){ 
@@ -118,14 +185,16 @@ $(function(){
 
 	});
 
-	$('#schedule').magnificPopup({
-		delegate: '.trailer a',
-		disableOn: 700,
-		type: 'iframe',
-		mainClass: 'mfp-fade',
-		removalDelay: 360,
-		preloader: 1,
-		fixedContentPos: false
-	});
+	$('#schedule')
+		.magnificPopup({
+			delegate: '.trailer a',
+			disableOn: 700,
+			type: 'iframe',
+			mainClass: 'mfp-fade',
+			removalDelay: 360,
+			preloader: 1,
+			fixedContentPos: false
+		});
+
 
 });

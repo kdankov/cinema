@@ -1,5 +1,7 @@
 <li>
-	<span class="poster"><img src="/cache/movies/posters/{{feature-code}}.jpg"></span>
+	<span class="poster">
+		<img src="/cache/movies/posters/{{feature-code}}.jpg">
+	</span>
 	<span class="item">
 		<span class="item-header">
 			{{#title}}<span class="title">{{title}}</span>{{/title}}
@@ -10,19 +12,19 @@
 			{{#3D}}<span class="tag 3d">3D</span>{{/3D}}
 			{{#trailer}}<span class="tag trailer"><a class="trailerlink" data-title="{{title}}" href="{{trailer}}">Trailer</a></span>{{/trailer}}
 			{{#synopsis}}
-			<span class="tag information">
-				<span class="fa fa-info"></span>
-				<span class="data">
-					<span class="info">
-						{{synopsis}}
+				<span class="tag information">
+					<span class="fa fa-info"></span>
+					<span class="data">
+						<span class="info">
+							{{synopsis}}
+						</span>
 					</span>
 				</span>
-			</span>
 			{{/synopsis}}
 		</span>
 		<span class="screenings">
 			{{#screenings}}
-			<a href="http://195.117.18.73/ReservationsBG?key=Sofia&ec={{code}}" target="_blank">{{time}}</a>
+			<a href="http://195.117.18.73/ReservationsBG?key=Sofia&ec={{code}}" target="_blank" class="show-{{show}}">{{time}}</a>
 			{{/screenings}}
 		</span>
 	</span>

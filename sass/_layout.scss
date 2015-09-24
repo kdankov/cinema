@@ -54,6 +54,11 @@ JS & Table related styles
 .ios7 {
    	#jscontainer header { padding-top: 2em; }
 }
+
 body.ios7:before {
 	display: block; content: ''; width: 100%; height: 20px; position: fixed; left: 0; top: 0; background: #f39c12; z-index: 2000;
+}
+
+#schedule.today .screenings a.show-false {
+	display: none;
 }
