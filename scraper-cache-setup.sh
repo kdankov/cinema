@@ -1,7 +1,7 @@
-cd cache
-mkdir cinemacity/
-mkdir movies/
-mkdir movies/posters/
-mkdir local/
-cd ..
+mkdir cache
+mkdir cache/cinemacity/
+mkdir cache/movies/
+mkdir cache/movies/posters/
+mkdir cache/movies/trailers/
+mkdir cache/local/
 chmod -R 777 cache/

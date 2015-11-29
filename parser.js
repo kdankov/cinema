@@ -75,11 +75,12 @@ function parseCinemaCity( url, json, htmlpath ){
 					time = time.replace("<br/>", '')
 					time = time.replace("\r\n", '', 'gi');
 					time = time.replace("\r\n", '', 'gi');
-					time = time.replace(" ", '');
+					time = time.replace(/ ?/gi, '');
 
+					// TODO: Check this &key=Sofia
 					var screening = {
 						'time' : time,
-						'code' : $(elem).attr('data-prsnt_code')
+						'url' : 'http://195.117.18.73/ReservationsBG?key=Sofia&ec=' + $(elem).attr('data-prsnt_code')
 					}
 
 					screenings.push(screening);
