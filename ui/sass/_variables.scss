@@ -1,0 +1,74 @@
+/* --- 
+ * Variables
+ * --- --- --- */
+
+$fa-font-path: '/bower_components/font-awesome/fonts/';
+
+/* 
+ * Colors - List of colors by pairs. Primary and Secondary color. */
+
+$colors: (
+	default:		( primary: #1abc9c, secondary: #16a085 ),
+	dull:			( primary: #95a5a6, secondary: #8f8f8f ),
+	confirm:		( primary: #27ae60, secondary: #2ecc71 ),
+	warning:		( primary: #f1c40f, secondary: #f39c12 ),
+	attention:		( primary: #e74c3c, secondary: #c0392b ),
+	clouds:			( primary: #ecf0f1, secondary: #bdc3c7 ),
+	empty:			( primary: rgba(255,255,255,0), secondary: #F8F8F8 ),
+	sky:			( primary: #3498db, secondary: #2980b9 ),
+	carrot:			( primary: #e67e22, secondary: #d35400 ),
+	dark:			( primary: #34495e, secondary: #2c3e50 ),
+	amethyst:		( primary: #9b59b6, secondary: #8e44ad ),
+);
+
+$color-text-light:		#FFF;
+$color-text-dark:		  #000;
+$color-bgrd-default:	#CCC;
+
+$color-body-bgrd:		#FFF;
+$color-body-text:		contrasting-color($color-body-bgrd, $color-text-light, $color-text-dark); 
+$color-body-text-light:	contrasting-color($color-body-bgrd, darken($color-text-light, 60), lighten($color-text-dark, 60)); 
+
+$color-link-normal:		#369;
+
+$color-form-border-def:	map-get(map-get($colors, 'dull'), 'primary');
+$color-form-border-act:	map-get(map-get($colors, 'default'), 'primary');
+
+$font-size-base:		16px;
+$font-line-height:		1.5;
+
+$fa-font-size-base:		$font-size-base;
+$fa-line-height-base:	$font-line-height;
+
+$font-family-text:		'Anivers', 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-display:	$font-family-text;
+
+$size-padding-default:	0.5em;
+$size-border-radius:	$size-padding-default*0.6;
+
+
+
+$backgroundColour: $color-body-bgrd;
+$linkColour: $color-link-normal;
+$hoverColour: $color-link-normal;
+$captionColour: $color-text-dark;
+
+
+/*
+
+$colors: (
+	default:		( primary: #95a5a6, secondary: #8f8f8f ),
+	turquois:		( primary: #1abc9c, secondary: #16a085 ),
+	emerland:		( primary: #2ecc71, secondary: #27ae60 ),
+	peter-river:	( primary: #3498db, secondary: #2980b9 ),
+	amethyst:		( primary: #9b59b6, secondary: #8e44ad ),
+	asphalt:		( primary: #34495e, secondary: #2c3e50 ),
+	sun-flower:		( primary: #f1c40f, secondary: #f39c12 ),
+	carrot:			( primary: #e67e22, secondary: #d35400 ),
+	alizarin:		( primary: #e74c3c, secondary: #c0392b ),
+	clouds:			( primary: #ecf0f1, secondary: #bdc3c7 ),
+	empty:			( primary: rgba(255,255,255,0), secondary: #F8F8F8 ),
+);
+
+*/
+

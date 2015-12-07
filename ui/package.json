@@ -1,0 +1,33 @@
+{
+  "name": "antipodes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "",
+    "gulp-util": "",
+    "gulp-load-plugins": ""
+  },
+  "devDependencies": {
+    "browser-sync": "",
+    "gulp": "",
+    "gulp-autoprefixer": "",
+    "gulp-changed": "",
+    "gulp-csso": "",
+    "gulp-file-include": "",
+    "gulp-notify": "",
+    "gulp-plumber": "",
+    "gulp-sass": "",
+    "gulp-size": "",
+    "gulp-sourcemaps": "",
+    "gulp-spawn": "",
+    "gulp-swig": "^0.8.0",
+    "handlebars": "^4.0.5"
+  },
+  "scripts": {
+    "setup": "npm install && bower install",
+    "start": "gulp"
+  },
+  "author": "Konstantin Dankov",
+  "license": "ISC"
+}

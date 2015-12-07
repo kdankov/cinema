@@ -1,0 +1,42 @@
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+@function sqrt($r) {
+  $x0: 1;
+  $x1: $x0;
+ 
+  @for $i from 1 through 10 {
+    $x1: $x0 - ($x0 * $x0 - abs(strip-units($r))) / (2 * $x0);
+    $x0: $x1;
+  }
+ 
+  @return $x1;
+}
+
+/*
+ * Very simple reset 
+ * --- */
+
+* {
+	padding: 0;
+	margin: 0;
+} 
+
+a:focus {
+	outline: none;
+}
+
+/*
+ * Inheriting box-sizing Probably Slightly Better Best-Practice
+ * https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ * --- */
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+

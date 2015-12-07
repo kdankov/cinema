@@ -1,0 +1,133 @@
+body, html {
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	background: linear-gradient(to left, #C04848 , #480048);
+	color: #FFF;
+
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	justify-items: center;
+}
+
+.site-header {
+	width: 100%;
+	position: absolute;
+	left: 0; top: 0;
+	opacity: 0.5;
+
+	padding: 1em 0 0 0;
+	
+	text-align: center;
+	text-shadow: 1px 1px 1px #000;
+}
+
+.site-footer {
+	width: 100%;
+	position: absolute;
+	left: 0; bottom: 0;
+	opacity: 0.5;
+
+	text-align: center;
+	text-shadow: 1px 1px 1px #000;
+}
+
+.selection {
+	flex: 1;
+	display: flex;
+	max-width: 80wv;
+	max-height: 70wh;
+	overflow: hidden;
+
+	padding: 2em;
+
+	background: rgba(255,255,255,0.2);
+	border-radius: 0.5em;
+
+	transition: all 0.3s ease;
+
+	& > div {
+		flex: 1 0 auto;
+	}
+
+	.separator {
+		display: none;
+		width: 4em;
+		flex: 0 0 auto;
+		text-align: center;
+		position: relative;
+		transition: all 0.3s ease;
+
+		&:after {
+			display: block;
+			position: absolute;
+			top: 50%; left: 50%;
+			transform: translate(-50%, -50%);
+
+			@extend .fa-chevron-right:before;
+			@extend .fa;
+		}
+	}
+
+	.select {
+		max-width: 30vw;
+		min-width: 9vw;
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		align-items: stretch;
+		align-content: stretch;
+		text-align: center;
+
+		transition: flex 0.3s ease;
+
+		&:first-of-type,
+		&.has-selection,
+		&.has-selection + .separator + .select {
+			display: flex;
+		}
+
+		&.has-selection + .separator {
+			display: block;
+		}
+	}
+
+	.option {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		overflow: hidden;
+		padding: 0.5em;
+		margin-bottom: 1em;
+
+		border-radius: 0.5em;
+		background: rgba(255,255,255,0.2);
+		box-shadow: 0 0 1em rgba(0,0,0,0.1);
+		
+		cursor: pointer;
+
+		transition:	flex 0.3s ease-out,
+					opacity 0.3s ease-out,
+					background 0.3s ease-out;
+
+		&:hover {
+			background: rgba(255,255,255,0.4);
+		}
+
+
+	}
+
+	.has-selection .option {
+		opacity: 0.1;
+
+		&.selected {
+			opacity: 1;
+		}
+	}
+}

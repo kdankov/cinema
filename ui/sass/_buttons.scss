@@ -1,0 +1,76 @@
+/* --- 
+ * Buttons
+ * --- --- --- */
+@mixin btn-hover($color){
+	
+	$map: $color;
+	$color: map-get($map, 'primary');
+
+	$color-bgrd: $color;
+
+	@if map-has-key($map, 'secondary') {
+		$color-bgrd-hover: map-get($map, 'secondary');
+	} @else {
+		$color-bgrd-hover: contrasting-color($color, lighten(saturate($color, 5), 15), darken(saturate($color, 5), 15));
+	}
+
+	$color-text: contrasting-color($color-bgrd, $color-text-light, $color-text-dark);
+	$color-text-hover: contrasting-color($color-bgrd-hover, $color-text-light, $color-text-dark);
+	
+	background: $color;
+	color: $color-text;
+
+	&:hover {
+		background: $color-bgrd-hover;
+		color: $color-text-hover;
+	}
+
+	&:active, &:focus {
+		background: contrasting-color($color-bgrd-hover, lighten(saturate($color-bgrd-hover, 5), 15), darken(saturate($color-bgrd-hover, 5), 15));
+		color: $color-text-light;
+	}
+}
+
+/* 
+ * Button styles - */
+
+.button, button {
+	display: inline-block;
+	padding: $size-padding-default 3*$size-padding-default;
+	border-radius: 0.3em;
+	margin: 0 1.5em 1.5em 0; 
+	text-transform: capitalize;
+	cursor: pointer;
+	transition: background 0.1s, color 0.1s;
+	border: none;
+	
+	background: $color-bgrd-default;
+	color: contrasting-color($color-bgrd-default, $color-text-light, $color-text-dark);
+	
+	@include btn-hover(map-get($colors, 'default'));
+	
+	&.empty:hover {
+		text-decoration: underline; 
+	}
+
+	&:focus {
+		text-decoration: underline; 
+		outline: none;
+		box-shadow: 0 0 1.5em 0 rgba(255,255,255,0.7) inset;
+	}
+}
+
+@each $colorName, $colors in $colors {
+	.button.#{$colorName} {
+		@include btn-hover($colors);
+	}
+}
+
+a.button {
+	text-decoration: none; 
+
+	&:visited {
+		text-decoration: underline; 
+	}
+}
+
